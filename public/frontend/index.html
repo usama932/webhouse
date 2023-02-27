@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/fav2.png" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="css/fontawesome_all.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MAIN SITE STYLE SHEETS -->
+    <link href="css/login.css" rel="stylesheet">
+
+    <title>Login | Soul Entertainment</title>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100 justify-content-center justify-content-md-between">
+
+
+    <main class="enter_view d-flex flex-column justify-content-center min-vh-100 flex-grow-1">
+
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-md-7 mb-5">
+
+                    <div class="enter_view_logo text-center">
+                        <img alt="" src="images/logo_dark.png" width="150" />
+                    </div>
+
+                </div>
+
+                <div class="col-md-10 col-lg-8">
+
+                    <div class="enter_view_content">
+
+                        <ul class="nav nav_items d-flex" id="EnterView_header">
+                            <li class="nav-item col-6" role="presentation">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#EnterViewUser" type="button">User</button>
+                            </li>
+                            <li class="nav-item col-6" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#EnterViewArtist" type="button">Artist</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="EnterViewContent">
+                            
+                            <!-- Tab content user start -->
+                            <div class="tab-pane show active section_bg_dark" id="EnterViewUser">
+                                
+                                <!-- Form user login start -->
+                                <form id="form_login_user" action="indexUser.html">
+                                    <div class="row justify-content-center">
+
+                                        <div class="col-sm-8 mb-3 text-center">
+                                            <h4 class="EnterView_tab_title">Login As User</h4>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 form-floating">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="userEmail" placeholder="Email address">
+                                                <label for="userEmail">Email address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" id="userPassword" placeholder="password">
+                                                <label for="userPassword">Password</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 text-center">
+                                            <button type="submit" class="btn btn_light w-100">Login</button>
+                                        </div>
+
+                                        <div class="col-sm-8 mt-4 text-center">
+                                            <p class="mb-0"><a href="#" data-formID="form_register_user">Don't have an account? Create account</a></p>
+                                            <a href="#" data-formID="form_forgot_user">Forgot Password?</a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form user login end -->
+
+                                <!-- Form user register start -->
+                                <form id="form_register_user" class="d-none" action="indexUser.html">
+                                    <div class="row justify-content-center">
+
+                                        <div class="col-sm-8 mb-3 text-center">
+                                            <h4 class="EnterView_tab_title">Register As User</h4>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="row g-2">
+                                                <div class="col-sm-6 form-floating">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" id="userRegister_fname" placeholder="First name">
+                                                        <label for="userRegister_fname">First name</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 form-floating">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" id="userRegister_lname" placeholder="Last name">
+                                                        <label for="userRegister_lname">Last name</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="userRegister_phone" placeholder="Phone number">
+                                                <label for="userRegister_phone">Phone number</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="userRegister_email" placeholder="Email address">
+                                                <label for="userRegister_email">Email address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" id="userRegister_password" placeholder="Password">
+                                                <label for="userRegister_password">Password</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" id="userRegister_password2" placeholder="Confirm password">
+                                                <label for="userRegister_password2">Confirm password</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 d-flex align-items-center">
+                                            <label class="form-check-label me-3" for="userRegister_gender">Gender :</label>
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="userRegister_gender" id="userRegister_gender_male">
+                                                <label class="form-check-label" for="userRegister_gender_male">Male</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="userRegister_gender" id="userRegister_gender_female">
+                                                <label class="form-check-label" for="userRegister_gender_female">Female</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 d-flex align-items-center">
+                                            <label for="userRegister_image" class="form-label col-sm-4 col-4">Upload Image</label>
+                                            <input class="form-control" type="file" id="userRegister_image">
+                                        </div>
+
+                                        <div class="col-sm-8 text-center">
+                                            <button type="submit" class="btn btn_light w-100">Register</button>
+                                        </div>
+
+                                        <div class="col-sm-8 mt-4 text-center">
+                                            <p class="mb-0">Already have an account?</p>
+                                            <a href="#" data-formID="form_login_user">Sign In</a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form user register end -->
+
+                                <!-- Form artist forgot start -->
+                                <form id="form_forgot_user" class="d-none" action="indexUser.html">
+                                    <div class="row justify-content-center">
+
+                                        <div class="col-sm-8 mb-3 text-center">
+                                            <h4 class="EnterView_tab_title">Forgot Your Password</h4>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 form-floating">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="userForgotEmail" placeholder="Email address">
+                                                <label for="userForgotEmail">Email address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 text-center">
+                                            <button type="submit" class="btn btn_light w-100">Submit</button>
+                                        </div>
+
+                                        <div class="col-sm-8 mt-4 text-center">
+                                            <p class="mb-0">Already have an account?</p>
+                                            <a href="#" data-formID="form_login_user">Sign In</a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form artist forgot end -->
+
+                            </div>
+                            <!-- Tab content user end -->
+
+                            <!-- Tab content artist start -->
+                            <div class="tab-pane show section_bg_dark" id="EnterViewArtist">
+
+                                <!-- Form artist login start -->
+                                <form id="form_login_artist" action="indexArtist.html">
+                                    <div class="row justify-content-center">
+
+                                        <div class="col-sm-8 mb-3 text-center">
+                                            <h4 class="EnterView_tab_title">Login As Artist</h4>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 form-floating">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="artistEmail" placeholder="Email address">
+                                                <label for="artistEmail">Email address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" id="artistPassword" placeholder="password">
+                                                <label for="artistPassword">Password</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 text-center">
+                                            <button type="submit" class="btn btn_light w-100">Login</button>
+                                        </div>
+
+                                        <div class="col-sm-8 mt-4 text-center">
+                                            <p class="mb-0"><a href="#" data-formID="form_register_artist">Don't have an account? Create Account</a></p>
+                                            <a href="#" data-formID="form_forgot_artist">Forgot Password?</a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form artist login end -->
+
+                                <!-- Form artist register start -->
+                                <form id="form_register_artist" class="d-none" action="index.html">
+                                    <div class="row justify-content-center">
+
+                                        <div class="col-sm-8 mb-3 text-center">
+                                            <h4 class="EnterView_tab_title">Register As Artist</h4>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="row g-2">
+                                                <div class="col-sm-6 form-floating">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" id="artistRegister_fname" placeholder="First name">
+                                                        <label for="artistRegister_fname">First name</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 form-floating">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" id="artistRegister_lname" placeholder="Last name">
+                                                        <label for="artistRegister_lname">Last name</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="artistRegister_phone" placeholder="Phone number">
+                                                <label for="artistRegister_phone">Phone number</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="artistRegister_email" placeholder="Email address">
+                                                <label for="artistRegister_email">Email address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" id="artistRegister_password" placeholder="Password">
+                                                <label for="artistRegister_password">Password</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" id="artistRegister_password2" placeholder="Confirm password">
+                                                <label for="artistRegister_password2">Confirm password</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 d-flex align-items-center">
+                                            <label class="form-check-label me-3" for="artistRegister_gender">Gender :</label>
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="artistRegister_gender" id="artistRegister_gender_male">
+                                                <label class="form-check-label" for="artistRegister_gender_male">Male</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="artistRegister_gender" id="artistRegister_gender_female">
+                                                <label class="form-check-label" for="artistRegister_gender_female">Female</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 d-flex align-items-center">
+                                            <label for="artistRegister_image" class="form-label col-sm-4 col-4">Upload Image</label>
+                                            <input class="form-control" type="file" id="artistRegister_image">
+                                        </div>
+
+                                        <div class="col-sm-8 text-center">
+                                            <button type="submit" class="btn btn_light w-100">Register</button>
+                                        </div>
+
+                                        <div class="col-sm-8 mt-4 text-center">
+                                            <p class="mb-0">Already have account?</p>
+                                            <a href="#" data-formID="form_login_artist">Sign In</a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form artist register start -->
+
+                                <!-- Form artist forgot start -->
+                                <form id="form_forgot_artist" class="d-none" action="index.html">
+                                    <div class="row justify-content-center">
+
+                                        <div class="col-sm-8 mb-3 text-center">
+                                            <h4 class="EnterView_tab_title">Forgot Your Password</h4>
+                                        </div>
+
+                                        <div class="col-sm-8 mb-3 form-floating">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="artistForgotEmail" placeholder="Email address">
+                                                <label for="artistForgotEmail">Email address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8 text-center">
+                                            <button type="submit" class="btn btn_light w-100">Submit</button>
+                                        </div>
+
+                                        <div class="col-sm-8 mt-4 text-center">
+                                            <p class="mb-0">Already have an account?</p>
+                                            <a href="#" data-formID="form_login_artist">Sign In</a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- Form artist forgot end -->
+
+                            </div>
+                            <!-- Tab content artist end -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Js -->
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        $("a").click(function(){
+            var formId = $(this).attr('data-formID');
+            if(formId){
+                $(this).closest("form").addClass('d-none');
+                $('#'+formId+'').removeClass('d-none');
+                $('#'+formId+'').addClass('d-block');
+            };
+        }); 
+    </script>
+
+</body>
+
+</html>

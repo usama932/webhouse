@@ -1,31 +1,5 @@
 <?php
 
-use App\Http\Controllers\AboutPageController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CmsController;
-use App\Http\Controllers\ContactPageController;
-use App\Http\Controllers\EcommerceDevelopmentController;
-use App\Http\Controllers\FooterController;
-use App\Http\Controllers\FrontEndController;
-use App\Http\Controllers\GeneralSettingController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IndustryPageController;
-use App\Http\Controllers\InfluencerMarketingController;
-use App\Http\Controllers\DigitalMarketingController;
-use App\Http\Controllers\EnquiryController;
-use App\Http\Controllers\ITConsultancyController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\MobileAppDevelopmentController;
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\ServicePageController;
-use App\Http\Controllers\SoftwareDevelopmentController;
-use App\Http\Controllers\UserCartController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WebServiceController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,178 +9,193 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
- */
+*/
 
-Route::get('/', [FrontEndController::class, 'index'])->name('main_web');
-Route::get('/about', [FrontEndController::class, 'about'])->name('about_page');
-Route::get('/packages', [FrontEndController::class, 'packages'])->name('packages_page');
-Route::get('/contact', [FrontEndController::class, 'contact'])->name('contact_page');
-Route::get('/industries', [FrontEndController::class, 'industries'])->name('industries_page');
-Route::get('/portfolio', [FrontEndController::class, 'portfolio'])->name('portfolio_page');
-Route::get('/amazon', [FrontEndController::class, 'amazon'])->name('amazon_page');
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
-Route::post('send_enquiry', [EnquiryController::class, 'send_enquiry'])->name('send_enquiry');
+Auth::routes();
 
-Route::group(['prefix' => 'services'], function () {
-    Route::get('/', [FrontEndController::class, 'services'])->name('services_page');
-    Route::get('/web_development', [FrontEndController::class, 'serviceWeb'])->name('web_services');
-    Route::get('/ecommerce', [FrontEndController::class, 'servicesEcommerce'])->name('ecommerce_services');
-    Route::get('/cms', [FrontEndController::class, 'cms'])->name('cms_services');
-    Route::get('/influencer_marketing', [FrontEndController::class, 'influencer_marketing'])->name('influencer_marketing');
-    Route::get('/digital_marketing', [FrontEndController::class, 'digital_marketing'])->name('digital_marketing');
-    Route::get('/advertising', [FrontEndController::class, 'advertising'])->name('advertising');
-    Route::get('/mobile_app_development', [FrontEndController::class, 'mobile_app_development'])->name('mobile_app_development');
-    Route::get('/software_development', [FrontEndController::class, 'software_development'])->name('software_development');
-    Route::get('/it_consultant', [FrontEndController::class, 'it_consultant'])->name('it_consultant');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/login', 'HomeController@index')->name('login');
+Route::get('/artist-login', 'HomeController@artistLogin')->name('artist-login');
+
+Route::get('/artist/register', 'HomeController@artistRegister')->name('artist.register');
+Route::post('/artist/register', 'Auth\ArtistLoginController@registration')->name('artist.register.submit');
+// Route::get('/sent-notification', 'HomeController@sendNotification')->name('home');
+
+
+
+Route::get('/clear',function(){
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
 });
+Route::group([
+    'middleware'    => ['auth'],
+    'prefix'        => 'user',
+    'namespace'     => 'User'
+], function ()
+{
+    Route::get('/dashboard', 'UserController@index')->name('user.dashboard');
+    Route::get('/profile-setting', 'UserController@profileSetting')->name('user.profile');
+    Route::post('/profile-setting', 'UserController@updateProfile')->name('user.updateprofile');
+    Route::get('/cache-clear', 'UserController@configCache')->name('user.cache_clear');
+    Route::get('/logout', 'UserController@logout')->name('user.logout');
 
-Route::get('/admin/login', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/notifications', 'UserController@notifications')->name('user.notifications');
 
-Route::post('admin/signin', [AdminController::class, 'login'])->name('admin.login');
 
-Route::group(['middleware' => ['auth.admin']], function () {
-Route::group(['prefix' => 'admin'], function () {
+    Route::get('/audio-songs', 'SongsController@audio_songs')->name('user.audioSongs');
+    Route::post('/audioSongs/search', 'SongsController@audioSearch')->name('audioSongs-search');
+    Route::post('/favourAudio/{id}', 'SongsController@favourAudio')->name('audioFavour');
+
+
+    Route::get('/video-songs', 'SongsController@video_songs')->name('user.videoSongs');
+    Route::post('/videoSongs/search', 'SongsController@videoSearch')->name('videoSongs-search');
+    Route::post('/favourVideo/{id}', 'SongsController@favourVideo')->name('videoFavour');
+
+    Route::get('/videoFavourite-songs', 'SongsController@videoFavourite_songs')->name('videoFavourite-songs');
+    Route::get('/audioFavourite-songs', 'SongsController@audioFavourite_songs')->name('audioFavourite-songs');
+
+
+
+});
+Route::group([
+    'middleware'    => ['auth:artist'],
+    'prefix'        => 'artist',
+    'namespace'     => 'Artist'
+], function ()
+{
+    Route::get('/dashboard', 'ArtistController@index')->name('artist.dashboard');
+    Route::get('/profile-setting', 'ArtistController@profileSetting')->name('artist.profile');
+    Route::post('/profile-setting', 'ArtistController@updateProfile')->name('artist.updateprofile');
+
+    Route::resource('artist-videos','VideosController');
+    Route::post('/videos/search', 'VideosController@search')->name('artist-video-search');
+    Route::post('/single-videos/search', 'VideosController@singleSearch')->name('artist-singlevideo-search');
+
+    Route::resource('artist-audios','AudioController');
+    Route::post('/audios/search', 'AudioController@search')->name('artist-audio-search');
+    Route::post('/single-audios/search', 'AudioController@singleSearch')->name('artist-singleaudio-search');
+
+    Route::resource('artist-albums','AlbumsController');
+    Route::post('/albums/search', 'AlbumsController@search')->name('artist-albums-search');
+
+    Route::resource('artist-events','EventsController');
+    Route::get('/eventDetail/{id}', 'EventsController@eventDetail')->name('artist.eventDetail');
+
     
-    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/slider', [HomeController::class, 'slider'])->name('slider');
-    Route::POST('/addSlider', [HomeController::class, 'addSlider'])->name('addSlider');
-    Route::get('/status/{id?}', [HomeController::class, 'status'])->name('status');
-    Route::get('/sliderEdit/{id?}', [HomeController::class, 'edit'])->name('sliderEdit');
-    Route::POST('/deleteslider/{id?}', [HomeController::class, 'deleteslider'])->name('deleteslider');
-    Route::get('/aboutUs', [HomeController::class, 'about'])->name('aboutUs');
-    Route::post('/update_about', [HomeController::class, 'update_about'])->name('update_about');
-    Route::get('/home/package', [HomeController::class, 'home_package'])->name('home_package');
-    Route::post('/home/update_package', [HomeController::class, 'update_home_package'])->name('update_home_package');
+    Route::resource('artist-images','ImagesController');
 
-    Route::get('/about_page', [AboutPageController::class, 'index'])->name('admin_about_page');
-    Route::post('/update_about_page', [AboutPageController::class, 'update'])->name('update_admin_about_page');
+    Route::resource('artist-subscribers','SubscribersController');
+    Route::post('/subscribe/search', 'SubscribersController@subscribeSearch')->name('artist-subscribe-search');
+    Route::post('/request/search', 'SubscribersController@requestSearch')->name('artist-request-search');
 
-    Route::get('/general_settings', [GeneralSettingController::class, 'index'])->name('admin_general_settings');
-    Route::post('/update_general_settings', [GeneralSettingController::class, 'update'])->name('update_admin_general_settings');
 
-    Route::get('/service_page', [ServicePageController::class, 'index'])->name('admin_service_page');
-    Route::post('/update_service_page', [ServicePageController::class, 'update'])->name('update_admin_service_page');
-    Route::get('/service_page/services', [ServicePageController::class, 'services'])->name('admin_services');
-    Route::get('/service_page/services/create', [ServicePageController::class, 'add_service'])->name('admin_add_service');
-    Route::post('/service_page/services/store', [ServicePageController::class, 'store_service'])->name('admin_store_service');
-    Route::get('/service_page/services/edit/{id}', [ServicePageController::class, 'edit_service'])->name('admin_edit_service');
-    Route::post('/service_page/services/update', [ServicePageController::class, 'update_service'])->name('admin_update_service');
-
-    Route::get('/package_page', [PackageController::class, 'index'])->name('admin_package_page');
-    Route::post('/update_package_page', [PackageController::class, 'update'])->name('update_admin_package_page');
-    Route::get('/package_page/package_types', [PackageController::class, 'package_types'])->name('admin_package_types');
-    Route::get('/package_page/package_types/create', [PackageController::class, 'add_package_type'])->name('admin_add_package_type');
-    Route::post('/package_page/package_types/store', [PackageController::class, 'store_package_type'])->name('admin_store_package_type');
-    Route::get('/package_page/package_types/edit/{id}', [PackageController::class, 'edit_package_type'])->name('admin_edit_package_type');
-    Route::post('/package_page/package_types/update', [PackageController::class, 'update_package_type'])->name('admin_update_package_type');
-    Route::get('/package_page/packages', [PackageController::class, 'packages'])->name('admin_packages');
-    Route::get('/package_page/packages/create', [PackageController::class, 'add_package'])->name('admin_add_package');
-    Route::post('/package_page/packages/store', [PackageController::class, 'store_package'])->name('admin_store_package');
-    Route::get('/package_page/packages/edit/{id}', [PackageController::class, 'edit_package'])->name('admin_edit_package');
-    Route::post('/package_page/packages/update', [PackageController::class, 'update_package'])->name('admin_update_package');
-    Route::delete('/package_page/packages/delete', [PackageController::class, 'delete_package'])->name('admin_delete_package');
-    
-    
-    Route::get('/portfolio_page', [PortfolioController::class, 'index'])->name('admin_portfolio_page');
-    Route::post('/update_portfolio_page', [PortfolioController::class, 'update'])->name('update_admin_portfolio_page');
-    Route::get('/portfolio_types', [PortfolioController::class, 'portfolio_types'])->name('admin_portfolio_types');
-    Route::get('portfolio_types/create', [PortfolioController::class, 'add_portfolio_type'])->name('admin_add_portfolio_type');
-    Route::post('portfolio_types/store', [PortfolioController::class, 'store_portfolio_type'])->name('admin_store_portfolio_type');
-    Route::get('portfolio_types/edit/{id}', [PortfolioController::class, 'edit_portfolio_type'])->name('admin_edit_portfolio_type');
-    Route::post('portfolio_types/update', [PortfolioController::class, 'update_portfolio_type'])->name('admin_update_portfolio_type');
-    Route::get('/portfolios', [PortfolioController::class, 'portfolios'])->name('admin_portfolio');
-    Route::get('portfolios/create', [PortfolioController::class, 'add_portfolio'])->name('admin_add_portfolio');
-    Route::post('portfolios/store', [PortfolioController::class, 'store_portfolio'])->name('admin_store_portfolio');
-    Route::get('portfolios/edit/{id}', [PortfolioController::class, 'edit_portfolio'])->name('admin_edit_portfolio');
-    Route::post('portfolios/update', [PortfolioController::class, 'update_portfolio'])->name('admin_update_portfolio');
-    Route::delete('/portfolio/delete', [PortfolioController::class, 'delete_portfolio'])->name('admin_delete_portfolio');
-
-    Route::get('/contact_page', [ContactPageController::class, 'index'])->name('admin_contact_page');
-    Route::post('/update_contact_page', [ContactPageController::class, 'update'])->name('update_admin_contact_page');
-    
-    Route::get('/contact_page/contact_fields', [ContactPageController::class, 'contact_fields'])->name('admin_contact_fields');
-    Route::get('/contact_page/contact_fields/create', [ContactPageController::class, 'add_contact_field'])->name('add_admin_contact_field');
-    Route::post('/contact_page/contact_fields/store', [ContactPageController::class, 'store_contact_field'])->name('store_admin_contact_field');
-    Route::get('/contact_page/contact_fields/edit/{id}', [ContactPageController::class, 'edit_contact_field'])->name('edit_admin_contact_field');
-    Route::post('/contact_page/contact_fields/update', [ContactPageController::class, 'update_contact_field'])->name('update_admin_contact_field');
-
-    Route::get('/industry_page', [IndustryPageController::class, 'index'])->name('admin_industry_page');
-    Route::post('/update_industry_page', [IndustryPageController::class, 'update'])->name('update_admin_industry_page');
-    Route::get('/industry_page/industries', [IndustryPageController::class, 'industries'])->name('admin_industries');
-    Route::get('/industry_page/industries/create', [IndustryPageController::class, 'add_industry'])->name('admin_add_industry');
-    Route::post('/industry_page/industries/store', [IndustryPageController::class, 'store_industry'])->name('admin_store_industry');
-    Route::get('/industry_page/industries/edit/{id}', [IndustryPageController::class, 'edit_industry'])->name('admin_edit_industry');
-    Route::post('/industry_page/industries/update', [IndustryPageController::class, 'update_industry'])->name('admin_update_industry');
-
-    Route::get('menu', [MenuController::class, 'index'])->name('admin_menu');
-    Route::post('/update_menu', [MenuController::class, 'update'])->name('update_admin_menu');
-    
-    Route::get('footer', [FooterController::class, 'index'])->name('admin_footer');
-    Route::post('/update_footer', [FooterController::class, 'update'])->name('update_admin_footer');
-    
-    Route::get('web_service', [WebServiceController::class, 'index'])->name('admin_web_service');
-    Route::post('/update_admin_web_service', [WebServiceController::class, 'update'])->name('update_admin_web_service');
-
-    Route::get('ecommerce_service', [EcommerceDevelopmentController::class, 'index'])->name('admin_ecommerce_service');
-    Route::post('/update_admin_ecommerce_service', [EcommerceDevelopmentController::class, 'update'])->name('update_admin_ecommerce_service');
-
-    Route::get('cms_service', [CmsController::class, 'index'])->name('admin_cms_service');
-    Route::post('/update_admin_cms_service', [CmsController::class, 'update'])->name('update_admin_cms_service');
-    
-    Route::get('mobile_service', [MobileAppDevelopmentController::class, 'index'])->name('admin_mobile_service');
-    Route::post('/update_admin_mobile_service', [MobileAppDevelopmentController::class, 'update'])->name('update_admin_mobile_service');
-    
-    Route::get('software_service', [SoftwareDevelopmentController::class, 'index'])->name('admin_software_service');
-    Route::post('/update_admin_software_service', [SoftwareDevelopmentController::class, 'update'])->name('update_admin_software_service');
-
-    Route::get('consultancy_service', [ITConsultancyController::class, 'index'])->name('admin_consultancy_service');
-    Route::post('/update_admin_consultancy_service', [ITConsultancyController::class, 'update'])->name('update_admin_consultancy_service');
-    
-    Route::get('influencer_service', [InfluencerMarketingController::class, 'index'])->name('admin_influencer_service');
-    Route::post('/update_admin_influencer_service', [InfluencerMarketingController::class, 'update'])->name('update_admin_influencer_service');
-    
-    Route::get('digital_marketing_service', [DigitalMarketingController::class, 'index'])->name('admin_digital_marketing_page');
-    Route::post('/update_admin_digital_marketing_service', [DigitalMarketingController::class, 'update'])->name('update_admin_digital_marketing_service');
-    
-    Route::get('social_media_section_one', [DigitalMarketingController::class, 'section_one_services'])->name('admin_social_media_section_one');
-    Route::get('add_marketing_service_one', [DigitalMarketingController::class, 'add_marketing_service_one'])->name('admin_add_social_media_section_one');
-    Route::post('store_marketing_service_one', [DigitalMarketingController::class, 'store_marketing_service_one'])->name('admin_store_social_media_section_one');
-    Route::get('edit_marketing_service_one/{id}', [DigitalMarketingController::class, 'edit_marketing_service_one'])->name('admin_edit_social_media_section_one');
-    Route::post('update_marketing_service_one', [DigitalMarketingController::class, 'update_marketing_service_one'])->name('admin_update_social_media_section_one');
-    Route::delete('delete_marketing_service_one', [DigitalMarketingController::class, 'delete_marketing_service_one'])->name('admin_delete_social_media_section_one');
-
-    Route::get('social_media_section_two', [DigitalMarketingController::class, 'section_two_services'])->name('admin_social_media_section_two');
-    Route::get('add_marketing_service_two', [DigitalMarketingController::class, 'add_marketing_service_two'])->name('admin_add_social_media_section_two');
-    Route::post('store_marketing_service_two', [DigitalMarketingController::class, 'store_marketing_service_two'])->name('admin_store_social_media_section_two');
-    Route::get('edit_marketing_service_two/{id}', [DigitalMarketingController::class, 'edit_marketing_service_two'])->name('admin_edit_social_media_section_two');
-    Route::post('update_marketing_service_two', [DigitalMarketingController::class, 'update_marketing_service_two'])->name('admin_update_social_media_section_two');
-    Route::delete('delete_marketing_service_two', [DigitalMarketingController::class, 'delete_marketing_service_two'])->name('admin_delete_social_media_section_two');
-
-    Route::get('user_enquiries', [EnquiryController::class, 'user_enquiries'])->name('admin_enquiries');
+    Route::post('/UnSubscribe/{id}', 'SubscribersController@unSubscribe')->name('artist-unSubscribe');
+    Route::post('/acceptRequest/{id}', 'SubscribersController@accept')->name('artist-acceptRequest');
+    Route::post('/rejectRequest/{id}', 'SubscribersController@reject')->name('artist-rejectRequest');
 
 });
 
+Route::prefix('admin')->group(function() {
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+
+    // Password reset routes
+    Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
+    Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
+    Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
+    Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+
+
 });
-Route::get('/user/login', [UserController::class, 'user_login'])->name('user.login_page');
+Route::prefix('artist')->group(function() {
+    Route::get('/login', 'Auth\ArtistLoginController@showLoginForm')->name('artist.login');
+    Route::post('/login', 'Auth\ArtistLoginController@login')->name('artist.login.submit');
+    Route::get('/logout', 'Auth\ArtistLoginController@logout')->name('artist.logout');
 
-Route::post('/user/signin', [UserController::class, 'login'])->name('user.login');
+    // Password reset routes
+    Route::post('/password/email', 'Auth\ArtistForgotPasswordController@sendResetLinkEmail')->name('artist.password.email');
+    Route::get('/password/reset', 'Auth\ArtistForgotPasswordController@showLinkRequestForm')->name('artist.password.request');
+    Route::post('/password/reset', 'Auth\ArtistResetPasswordController@reset')->name('artist.password.update');
+    Route::get('/password/reset/{token}', 'Auth\ArtistResetPasswordController@showResetForm')->name('artist.password.reset');
 
-Route::get('/user/register', [UserController::class, 'register_page'])->name('user_register_page');
 
-Route::post('/user/signup', [UserController::class, 'register'])->name('user_register');
-
-Route::group(['middleware' => ['auth.user']], function () {
-Route::group(['prefix' => 'user'], function () {
-    
-    Route::get('/profile', [UserCartController::class, 'profile'])->name('user_profile');
-    Route::post('/logout', [UserController::class, 'logout'])->name('user.logout');
-    Route::get('/cart', [UserCartController::class, 'index'])->name('user_cart');
-    Route::post('/add_to_cart_package', [UserCartController::class, 'add_to_cart_package'])->name('add_to_cart_package');
-    Route::delete('/delete_from_cart', [UserCartController::class, 'delete_from_cart'])->name('delete_from_cart');
-   
 });
+Route::group([
+    'middleware'    => ['auth:admin'],
+    'prefix'        => 'admin',
+    'namespace'     => 'Admin'
+], function ()
+{
+    Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/profile', 'AdminController@edit')->name('admin-profile');
+    Route::post('/admin-update', 'AdminController@update')->name('admin-update');
+
+
+
+    //Setting Routes
+    Route::resource('setting','SettingController');
+    Route::get('/cache-clear', 'AdminController@configCache')->name('admin.cache_clear');
+
+    //User Routes
+    Route::resource('users','UsersController');
+    Route::get('users/edit/{id}', 'UsersController@edit')->name('admin-edit');
+    Route::post('get-users', 'UsersController@getUsers')->name('admin.getUsers');
+    Route::post('get-user', 'UsersController@userDetail')->name('admin.getUser');
+    Route::get('users/delete/{id}', 'UsersController@destroy')->name('user-delete');
+    Route::post('delete-selected-users', 'UsersController@DeleteSelectedUsers')->name('delete-selected-users');
+    Route::get('edit-profile/{id}', 'UsersController@show')->name('edit-profile');
+
+    //Artist Routes
+    Route::resource('artists','ArtistsController');
+    Route::post('get-artists', 'ArtistsController@getUsers')->name('admin.getArtists');
+    Route::post('get-artist', 'ArtistsController@userDetail')->name('admin.getArtist');
+    Route::get('artists/delete/{id}', 'ArtistsController@destroy')->name('artist-delete');
+    Route::get('artists/events/{id}', 'ArtistsController@events')->name('artist-events');
+    Route::get('artists/albums/{id}', 'ArtistsController@albums')->name('artist-albums');
+    Route::get('artists/audios/{id}', 'ArtistsController@audios')->name('artist-audios');
+    Route::get('artists/videos/{id}', 'ArtistsController@videos')->name('artist-videos');
+    Route::get('artists/images/{id}', 'ArtistsController@images')->name('artist-images');
+    Route::get('artists/event/{id}', 'ArtistsController@event')->name('artist-event');
+    Route::get('artist/album/{id}', 'ArtistsController@album')->name('artist-album');
+    Route::get('artists/audio/{id}', 'ArtistsController@audio')->name('artist-audio');
+    Route::get('artists/video/{id}', 'ArtistsController@video')->name('artist-video');
+    Route::get('artists/image/{id}', 'ArtistsController@image')->name('artist-image');
+    Route::post('artists-event-status', 'ArtistsController@eventStatus')->name('artist-event-status');
+    Route::post('artist-album-status', 'ArtistsController@albumStatus')->name('artist-album-status');
+    Route::post('artists-audio-status', 'ArtistsController@audioStatus')->name('artist-audio-status');
+    Route::post('artists-video-status', 'ArtistsController@videoStatus')->name('artist-video-status');
+    Route::post('artists-image-status', 'ArtistsController@imageStatus')->name('artist-image-status');
+    Route::post('delete-selected-artists', 'ArtistsController@DeleteSelectedUsers')->name('delete-selected-artists');
+
+    //Image Routes
+    // Route::resource('images','ImagesController');
+    // Route::post('get-images', 'ImagesController@getUsers')->name('admin.getImage');
+    // Route::post('get-image', 'ImagesController@userDetail')->name('admin.getImages');
+    // Route::get('images/delete/{id}', 'ImagesController@destroy')->name('images-delete');
+    // Route::post('delete-selected-images', 'ImagesController@DeleteSelectedUsers')->name('delete-selected-images');
+
+    //User Routes
+    Route::resource('messages','MessageController');
+    Route::get('messages/edit/{id}', 'MessageController@edit')->name('admin.edit_message');
+    Route::post('get-messages', 'MessageController@getMessages')->name('admin.getMessages');
+    Route::post('get-message', 'MessageController@messageDetail')->name('admin.getMessage');
+    Route::get('messages/delete/{id}', 'MessageController@destroy')->name('admin.deleteMessage');
+    Route::post('delete-selected-messages', 'MessageController@deleteSelectedMessages')->name('admin.deleteSelectedMessages');
+
+    //Category Routes
+    Route::resource('categories','CategoriesController');
+    Route::get('categories/edit/{id}', 'CategoriesController@edit')->name('admin-categories-edit');
+    Route::post('get-categories', 'CategoriesController@getCategories')->name('admin-getAddedCategories');
+    Route::get('categories/delete/{id}', 'CategoriesController@destroy')->name('admin-categories-delete');
+    Route::post('delete-selected-categories', 'CategoriesController@DeleteSelectedCategories')->name('delete-selected-categories');
+    Route::post('categories/detail', 'CategoriesController@getCategoryDetail')->name('admin-getCategories');
 
 });
