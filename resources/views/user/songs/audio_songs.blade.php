@@ -48,7 +48,9 @@
                     </li>
                     @endforeach
                     <!-- Song ltem -->
-                  
+                    <div class="d-flex justify-content-center">
+                        {!! $audios->links() !!}
+                    </div>
 
                 </ul>
                 
@@ -99,11 +101,6 @@
 
                     Swal.fire("Favour Added Successfully!", response.msg, "success");
                     location.reload();
-
-
-
-
-
                 }).fail(function(response) {
                     swal.fire("Cancelled", response.statusText, "error");
                 });

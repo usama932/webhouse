@@ -60,6 +60,10 @@ Route::group([
     Route::get('/videoFavourite-songs', 'SongsController@videoFavourite_songs')->name('videoFavourite-songs');
     Route::get('/audioFavourite-songs', 'SongsController@audioFavourite_songs')->name('audioFavourite-songs');
 
+    Route::get('/category', 'SongsController@category')->name('user.category');
+    Route::get('/artist', 'SongsController@artist')->name('user.artist');
+    Route::get('/sub_artist', 'SongsController@sub_artist')->name('user.sub_artist');
+
 
 
 });

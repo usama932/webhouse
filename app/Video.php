@@ -21,4 +21,7 @@ class Video extends Model
     {
         return $this->belongsTo('App\Category', 'category');
     }
+    public function fav(){
+       return $this->hasOne('App\FavrateVideo','video_id','id');
+    }
 }

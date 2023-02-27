@@ -10,25 +10,26 @@ use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\ArtistSubscribe;
+use App\Artist;
+use App\User;
 
 class SongsController extends Controller
 {
     public function audio_songs()
     {
+        
         $user_id = Auth::id();
-        $audios = Audio::whereNotIn('id', DB::table('favrate_audio')->where('user_id', '=', $user_id)->pluck('audio_id'))
-            ->where('id', '!=', $user_id)
-            ->get();
+        $audios = Audio::with('cat','artist','fav')->paginate(10);
+           
         return view("user.songs.audio_songs", ["audios" => $audios]);
     }
 
     public function video_songs()
     {
         $user_id = Auth::id();
-        $videos = Video::whereNotIn('id', DB::table('favrate_videos')->where('user_id', '=', $user_id)->pluck('video_id'))
-            ->where('id', '!=', $user_id)
-            ->get();
-
+        $videos = Video::with('cat','artist')->paginate(10);
+        
         return view("user.songs.video_songs", ["videos" => $videos]);
     }
     public function audioSearch(Request $request)
@@ -82,14 +83,26 @@ class SongsController extends Controller
     public function audioFavourite_songs()
     {
         $id= Auth::id();
-        $audios = FavrateAudio::where('user_id',$id)->get();
+        $audios = FavrateAudio::where('user_id',$id)->with('audio')->get();
+      
         return view("user.favourite_songs.audioFavourite", ["audios" => $audios]);
     }
 
     public function videoFavourite_songs()
     {
         $id= Auth::id();
-        $videos = FavrateVideo::where('user_id',$id)->get();
+        $videos = FavrateVideo::where('user_id',$id)->with('video')->get();
         return view("user.favourite_songs.videoFavourite", ["videos" => $videos]);
+    }
+    public function category(){
+        dd('category');
+    }
+    public function artist(){
+        $artists = Artist::latest()->paginate(10);
+        return view("user.artists.all");
+    }
+    public function sub_artist(){
+        $artists = Artist::latest()->paginate(10);
+        return view("user.artists.subcribe");
     }
 }

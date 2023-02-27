@@ -15,85 +15,28 @@
 
                 <div class="d-flex justify-content-between">
                     <h3 class="section_heading section_heading_divider mb-5">Weekly Top 5 Audios</h3>
-                    <a href="songs_audio.html">View All</a>
+                    <a href="{{route('user.audioSongs')}}">View All</a>
                 </div>
                 
 
                 <ul class="list_items p-0 m-0">
-                    <!-- Top Song ltem -->
+                    @foreach($audios as $audio)
                     <li class="list_item d-flex align-items-center">
                         <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
+                             <img alt="" src="{{asset("uploads/audio/$audio->thumbnail")}}" width="60"/>
                         </a>
                         <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
+                            <a class="list_item_info_title" href="#">{{$audio->name}}</a>
+                            <a class="list_item_info_sub" href="#">{{$audio->cat->name}}</a>
                         </div>
                         <div class="list_item_icons ms-auto">
                             <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
+                             <a href="javascript:;" class="favour1" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
 
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="fas fa-heart"></i></a>
                         </div>
                     </li>
-
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="fas fa-heart"></i></a>
-                        </div>
-                    </li>
+                    @endforeach
+                
 
                 </ul>
                 
@@ -105,84 +48,27 @@
 
                 <div class="d-flex justify-content-between">
                     <h3 class="section_heading section_heading_divider mb-5">Weekly Top 5 Videos</h3>
-                    <a href="songs_video.html">View All</a>
+                    <a href="{{route('user.videoSongs')}}">View All</a>
                 </div>
 
                 <ul class="list_items p-0 m-0">
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
+                    @foreach($videos as $video)
+                        <li class="list_item d-flex align-items-center">
+                            <a href="#" class="list_item_thumb">
+                                      <img alt="" src="{{asset("uploads/video/$video->thumbnail")}}" width="60"/>
+                            </a>
+                            <div class="list_item_info mx-3">
+                                <a class="list_item_info_title" href="#">{{$video->name}}</a>
+                                <a class="list_item_info_sub" href="#">{{$video->cat->name}}</a>
+                            </div>
+                            <div class="list_item_icons ms-auto">
+                                <a href="#"><i class="fas fa-play"></i></a>
+                                 <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
+                            </div>
+                        </li>
 
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="fas fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Top Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
+                    @endforeach
+                  
 
                 </ul>
                 
@@ -435,4 +321,86 @@
 
 </main>
 
+@endsection
+@section("scripts")
+<script>
+    $(document).on('click', '.favour1', function(e) {
+        var uid = $(this).data('id');
+        tr = $(this).closest('tr');
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You could be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Favour/unFavour!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        '_method': 'POST'
+                    },
+                    url: "{{url('user/favourAudio/')}}/" + uid,
+
+                }).done(function(response) {
+
+                    Swal.fire("Favour Added Successfully!", response.msg, "success");
+                    location.reload();
+                }).fail(function(response) {
+                    swal.fire("Cancelled", response.statusText, "error");
+                });
+            }
+        })
+    });
+</script>
+<script>
+    $(document).on('click', '.favour', function(e) {
+        var uid = $(this).data('id');
+        tr = $(this).closest('tr');
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Added to Favourite!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        '_method': 'POST'
+                    },
+                    url: "{{url('user/favourVideo/')}}/" + uid,
+
+                }).done(function(response) {
+
+                    Swal.fire("Favourite!", response.msg, "success");
+                    location.reload();
+
+
+                }).fail(function(response) {
+                    swal.fire("Cancelled", response.statusText, "error");
+                });
+            }
+        })
+    });
+</script>
 @endsection

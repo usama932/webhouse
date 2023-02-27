@@ -59,7 +59,7 @@ $logo = isset($setting['logo']) ? '/uploads/'.$setting['logo'] : 'frontend/image
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="categories.html">
+                    <a class="nav-link" href="{{route('user.category')}}">
                         <i class="fas fa-th-large"></i>
                         <span class="nav-link-title">Category</span>
                     </a>
@@ -70,8 +70,8 @@ $logo = isset($setting['logo']) ? '/uploads/'.$setting['logo'] : 'frontend/image
                         <span class="nav-link-title">Artist</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="artists.html">All</a></li>
-                        <li><a class="dropdown-item" href="artists.html">Subscribed</a></li>
+                        <li><a class="dropdown-item" href="{{route('user.artist')}}">All</a></li>
+                        <li><a class="dropdown-item" href="{{route('user.sub_artist')}}">Subscribed</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -136,7 +136,7 @@ $logo = isset($setting['logo']) ? '/uploads/'.$setting['logo'] : 'frontend/image
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="categories.html">
+                                    <a class="nav-link" href="{{route('user.category')}}">
                                         <i class="fas fa-th-large"></i>
                                         <span class="nav-link-title">Category</span>
                                     </a>
@@ -147,8 +147,8 @@ $logo = isset($setting['logo']) ? '/uploads/'.$setting['logo'] : 'frontend/image
                                         <span class="nav-link-title">Artist</span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="artists.html">All</a></li>
-                                        <li><a class="dropdown-item" href="artists.html">Subscribed</a></li>
+                                        <li><a class="dropdown-item" href="{{route('user.artist')}}">All</a></li>
+                                        <li><a class="dropdown-item" href="{{route('user.sub_artist')}}">Subscribed</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">

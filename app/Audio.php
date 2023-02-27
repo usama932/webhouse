@@ -23,4 +23,7 @@ class Audio extends Model
     {
         return $this->belongsTo('App\Category', 'category');
     }
+    public function fav(){
+        return $this->hasOne('App\FavrateAudio','audio_id','id');
+     }
 }

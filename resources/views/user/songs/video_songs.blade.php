@@ -40,7 +40,7 @@
                         </a>
                         <div class="list_item_info mx-3">
                             <a class="list_item_info_title" href="#">{{$video->name}}</a>
-                            <a class="list_item_info_sub" href="category.html"></a>
+                            <a class="list_item_info_sub" href="#">{{$video->cat->name}}</a>
                         </div>
                         <div class="list_item_icons ms-auto">
                             <a href="#"><i class="fas fa-play"></i></a>
@@ -51,7 +51,9 @@
                     @endforeach
 
                     <!-- Song ltem -->
-              
+                    <div class="d-flex justify-content-center">
+                        {!! $videos->links() !!}
+                    </div>
 
                 </ul>
                 

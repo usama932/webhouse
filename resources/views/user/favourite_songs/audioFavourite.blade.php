@@ -28,111 +28,26 @@
                 </div>
                
                 <ul class="list_items p-0 m-0">
-                    <!-- Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
+                    @foreach($audios as $audio)
+                        <li class="list_item d-flex align-items-center">
+                            <a href="#" class="list_item_thumb">
+                                <img alt="" src="{{asset("uploads/audio/$audio->autdio->thumbnail")}}" width="60"/>    
+                            </a>
+                            <div class="list_item_info mx-3">
+                                <a class="list_item_info_title" href="#">{{$audio->audio->name}}</a>
+                                <a class="list_item_info_sub" href="category.html">{{$audio->audio->cat->name}}</a>
+                            </div>
+                            <div class="list_item_icons ms-auto">
+                                <a href="#"><i class="fas fa-play"></i></a>
+                                <a href="#"><i class="far fa-heart"></i></a>
+                            </div>
+                        </li>   
+                    @endforeach
 
-                    <!-- Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
+                    
 
-                    <!-- Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
-                    <!-- Song ltem -->
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="images/placeholder_1.jpg" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">Item Title</a>
-                            <a class="list_item_info_sub" href="category.html">Category</a>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="#"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-
+                    
+            
                 </ul>
                 
             </div>
