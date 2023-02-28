@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\ArtistSubscribe;
 use App\Artist;
 use App\User;
+use App\Category;
 
 class SongsController extends Controller
 {
@@ -103,7 +104,6 @@ class SongsController extends Controller
     }
     public function dislike_audio($id)
     {
-       
         $audio = FavrateAudio::find($id);
         if(!empty($audio)){
             $audio->delete();
@@ -111,9 +111,8 @@ class SongsController extends Controller
         }
         return response()->json(['status' => true, 'msg' => 'Not found audio']);
     }
-    public function category(){
-        dd('category');
-    }
+ 
+    
     public function artist(){
         $artists = Artist::where('active',1)->latest()->paginate(10);
         return view("user.artists.all",compact('artists'));

@@ -120,9 +120,7 @@
                             </div>
                         @endforeach
 
-                        <div class="d-flex justify-content-center">
-                            {!! $artists->links() !!}
-                        </div>
+                      
                         
                     </div>
 

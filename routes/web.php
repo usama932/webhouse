@@ -51,6 +51,7 @@ Route::group([
     Route::get('/audio-songs', 'SongsController@audio_songs')->name('user.audioSongs');
     Route::post('/audioSongs/search', 'SongsController@audioSearch')->name('audioSongs-search');
     Route::post('/favourAudio/{id}', 'SongsController@favourAudio')->name('audioFavour');
+    
 
 
     Route::get('/video-songs', 'SongsController@video_songs')->name('user.videoSongs');
@@ -62,12 +63,17 @@ Route::group([
 
     Route::get('/videoFavourite-songs', 'SongsController@videoFavourite_songs')->name('videoFavourite-songs');
     Route::get('/audioFavourite-songs', 'SongsController@audioFavourite_songs')->name('audioFavourite-songs');
-
-    Route::get('/category', 'SongsController@category')->name('user.category');
+    // User Categories
+    Route::get('/category', 'CategoryController@category')->name('user.category');
+    Route::get('/audio_category/{id}', 'CategoryController@show_audioSongs')->name('user.audio_category_songs');
+    Route::get('/video_category/{id}', 'CategoryController@show_videoSongs')->name('user.video_category_songs');
+    Route::post('/search_category', 'CategoryController@searchCategory')->name('user.search_category');
+  
+    
     Route::get('/artist', 'SongsController@artist')->name('user.artist');
     Route::get('/sub_artist', 'SongsController@sub_artist')->name('user.sub_artist');
 
-    // /Subscriber
+    //Subscriber
     Route::post('/subscribe_artist/{id}', 'ArtistSubscribeController@subscribe')->name('subscribe_artist');
     Route::post('/unsubscribe_artist/{id}', 'ArtistSubscribeController@unsubscribe')->name('unsubscribe_artist');
     
