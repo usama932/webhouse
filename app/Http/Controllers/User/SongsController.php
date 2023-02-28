@@ -119,7 +119,7 @@ class SongsController extends Controller
     }
 
     public function sub_artist(){ 
-        
+        $id= Auth::id();
         $artists = ArtistSubscribe::where('user_id',$id)->with('artist')->latest()->paginate(10);
         return view("user.artists.subcribe",compact('artists'));
     }
