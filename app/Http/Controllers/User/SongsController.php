@@ -69,13 +69,10 @@ class SongsController extends Controller
     public function favourAudio($id)
     {
         $user_id = Auth::id();
-
-
         $video = new FavrateAudio();
         $video->user_id = $user_id;
         $video->AUDIO_id = $id;
         $video->save();
-
 
         return response()->json(['status' => true, 'msg' => 'Added to Favourite']);
     }
@@ -90,19 +87,42 @@ class SongsController extends Controller
 
     public function videoFavourite_songs()
     {
+       
         $id= Auth::id();
         $videos = FavrateVideo::where('user_id',$id)->with('video')->get();
         return view("user.favourite_songs.videoFavourite", ["videos" => $videos]);
+    }
+    public function dislike_video($id)
+    {
+        $video = FavrateVideo::find($id);
+        if(!empty($video)){
+            $video->delete();
+            return response()->json(['status' => true, 'msg' => 'Added to unwanted']);
+        }
+        return response()->json(['status' => true, 'msg' => 'Not found Video']);
+    }
+    public function dislike_audio($id)
+    {
+       
+        $audio = FavrateAudio::find($id);
+        if(!empty($audio)){
+            $audio->delete();
+            return response()->json(['status' => true, 'msg' => 'Added to unwanted']);
+        }
+        return response()->json(['status' => true, 'msg' => 'Not found audio']);
     }
     public function category(){
         dd('category');
     }
     public function artist(){
-        $artists = Artist::latest()->paginate(10);
-        return view("user.artists.all");
+        $artists = Artist::where('active',1)->latest()->paginate(10);
+        return view("user.artists.all",compact('artists'));
     }
+
     public function sub_artist(){
-        $artists = Artist::latest()->paginate(10);
-        return view("user.artists.subcribe");
+        $id= Auth::id();
+        $artists = ArtistSubscribe::where('user_id',$id)->with('artist')->latest()->paginate(10);
+       
+        return view("user.artists.subcribe",compact('artists'));
     }
 }

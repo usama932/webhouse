@@ -57,6 +57,9 @@ Route::group([
     Route::post('/videoSongs/search', 'SongsController@videoSearch')->name('videoSongs-search');
     Route::post('/favourVideo/{id}', 'SongsController@favourVideo')->name('videoFavour');
 
+    Route::post('/dislike_video/{id}', 'SongsController@dislike_video')->name('dislike_video');
+    Route::post('/dislike_audio/{id}', 'SongsController@dislike_audio')->name('dislike_audio');
+
     Route::get('/videoFavourite-songs', 'SongsController@videoFavourite_songs')->name('videoFavourite-songs');
     Route::get('/audioFavourite-songs', 'SongsController@audioFavourite_songs')->name('audioFavourite-songs');
 

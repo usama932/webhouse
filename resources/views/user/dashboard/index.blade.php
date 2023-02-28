@@ -28,11 +28,12 @@
                         <div class="list_item_info mx-3">
                             <a class="list_item_info_title" href="#">{{$audio->name}}</a>
                             <a class="list_item_info_sub" href="#">{{$audio->cat->name}}</a>
+                            <a href="javascript:;" class="favour1" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                             <a href="javascript:;" class="favour1" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
-
+                            <audio controls>
+                                <source src="{{asset("uploads/audio")}}/{{$audio->audio}}" type="audio/mpeg"> 
+                            </audio>
                         </div>
                     </li>
                     @endforeach
@@ -60,10 +61,15 @@
                             <div class="list_item_info mx-3">
                                 <a class="list_item_info_title" href="#">{{$video->name}}</a>
                                 <a class="list_item_info_sub" href="#">{{$video->cat->name}}</a>
+                                <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
                             </div>
                             <div class="list_item_icons ms-auto">
-                                <a href="#"><i class="fas fa-play"></i></a>
-                                 <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
+                                <video width="150" height="100" controls>                             
+                                    <source src="{{asset("uploads/video")}}/{{$video->video}}  " type="video/mp4">   
+                                    <source src="{{asset("uploads/video")}}/{{$video->video}}  " type="video/ogg">   
+                                    Your browser does not support the video tag. 
+                                </video> 
+                                 
                             </div>
                         </li>
 
@@ -97,102 +103,26 @@
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
 
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="artist.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Artists Name</h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn_light btn_sm">subscribe</a>
+                        @foreach($artists as $artist)
+                            <div class="swiper-slide">
+                                <div class="item_box">
+                                    <a href="artist.html" class="stretched-link"></a>
+                                    <div class="item_box_thumb item_box_thumb_link">
+                                        <img alt="" src="{{asset("uploads/$artist->image")}}"/>
+                                    </div>
+                                    <div class="item_box_content">
+                                        <h5 class="item_box_title">{{$artist->name}}</h5>
+                                        <div class="text-center">
+                                            <a href="#" class="btn btn_light btn_sm">subscribe</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="artist.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Artists Name</h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn_light btn_sm">subscribed</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-center">
+                            {!! $artists->links() !!}
                         </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="artist.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Artists Name</h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn_light btn_sm">subscribe</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="artist.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Artists Name</h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn_light btn_sm">subscribed</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="artist.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Artists Name</h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn_light btn_sm">subscribe</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="artist.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Artists Name</h5>
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn_light btn_sm">subscribe</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         
                     </div>
 
@@ -215,7 +145,7 @@
 
             <div class="d-flex justify-content-between">
                 <h3 class="section_heading section_heading_divider mb-5">Top Categories</h3>
-                <a href="categories.html">View All</a>
+                <a href="{{route('user.category')}}">View All</a>
             </div>
 
             <div class="col-md-12">
@@ -224,85 +154,22 @@
                 <div class="swiper featured_artists">
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="category.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Category Name</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="category.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Category Name</h5>
+                        @foreach($categories as $category)
+                        
+                            <div class="swiper-slide">
+                                <div class="item_box">
+                                    <a href="#" class="stretched-link"></a>
+                                    <div class="item_box_thumb item_box_thumb_link">
+                                        <img alt="" src="{{asset("uploads/$category->image")}}"/>
+                                    </div>
+                                    <div class="item_box_content">
+                                        <h5 class="item_box_title">{{$category->name}}</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="category.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Category Name</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="category.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Category Name</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="category.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Category Name</h5>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slides -->
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <a href="category.html" class="stretched-link"></a>
-                                <div class="item_box_thumb item_box_thumb_link">
-                                    <img alt="" src="images/placeholder_1.jpg"/>
-                                </div>
-                                <div class="item_box_content">
-                                    <h5 class="item_box_title">Category Name</h5>
-                                </div>
-                            </div>
-                        </div>
-
+                       
                         
                     </div>
 

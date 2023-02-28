@@ -38,19 +38,18 @@
                         <div class="list_item_info mx-3">
                             <a class="list_item_info_title" href="#">{{$audio->name}}</a>
                             <a class="list_item_info_sub" href="category.html">{{$audio->cat->name}}</a>
+                             <a href="javascript:;" class="favour" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
+
                         </div>
                         <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <!-- <a href="#"><i class="far fa-heart"></i></a> -->
-                            <a href="javascript:;" class="favour" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
-
+                            <audio controls>
+                                <source src="{{asset("uploads/audio")}}/{{$audio->audio}}" type="audio/mpeg"> 
+                            </audio>
                         </div>
                     </li>
                     @endforeach
                     <!-- Song ltem -->
-                    <div class="d-flex justify-content-center">
-                        {!! $audios->links() !!}
-                    </div>
+                   
 
                 </ul>
                 

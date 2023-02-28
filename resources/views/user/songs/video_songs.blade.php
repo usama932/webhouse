@@ -41,10 +41,16 @@
                         <div class="list_item_info mx-3">
                             <a class="list_item_info_title" href="#">{{$video->name}}</a>
                             <a class="list_item_info_sub" href="#">{{$video->cat->name}}</a>
+                            <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
                         </div>
                         <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
-                            <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
+                                <video width="150" height="100" controls> 
+                            
+                                    <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/mp4">   
+                                    <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/ogg">   
+                                    Your browser does not support the video tag. 
+                                </video> 
+                            
 
                         </div>
                     </li>
