@@ -67,8 +67,10 @@ Route::group([
     Route::get('/artist', 'SongsController@artist')->name('user.artist');
     Route::get('/sub_artist', 'SongsController@sub_artist')->name('user.sub_artist');
 
-
-
+    // /Subscriber
+    Route::post('/subscribe_artist/{id}', 'ArtistSubscribeController@subscribe')->name('subscribe_artist');
+    Route::post('/unsubscribe_artist/{id}', 'ArtistSubscribeController@unsubscribe')->name('unsubscribe_artist');
+    
 });
 Route::group([
     'middleware'    => ['auth:artist'],
