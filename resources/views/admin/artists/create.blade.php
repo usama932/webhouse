@@ -86,6 +86,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">Feature</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox" checked class="js-switch" data-color="#99d683" name="feature"  value="1" />
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">Gender</label>
                         <div class="col-sm-4">
                             <input type="radio" id="male" name="gender" value="1" checked>

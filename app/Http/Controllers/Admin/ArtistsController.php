@@ -227,6 +227,13 @@ class ArtistsController extends Controller
             $user->active = 1;
 
         }
+        $res = array_key_exists('feature', $input);
+        if ($res == false) {
+            $user->feature = 0;
+        } else {
+            $user->feature = 1;
+
+        }
         $user->password = bcrypt($input['password']);
         $user->save();
 
@@ -322,6 +329,13 @@ class ArtistsController extends Controller
             $user->active = 0;
         } else {
             $user->active = 1;
+
+        }
+        $res = array_key_exists('feature', $input);
+        if ($res == false) {
+            $user->feature = 0;
+        } else {
+            $user->feature = 1;
 
         }
         if(!empty($input['password'])) {

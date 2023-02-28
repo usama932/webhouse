@@ -153,6 +153,13 @@ class CategoriesController extends Controller
 
             }
         }
+        $res = array_key_exists('feature', $input);
+        if ($res == false) {
+            $user->feature = 0;
+        } else {
+            $user->feature = 1;
+
+        }
         $category->save();
         Session::flash('success_message', 'Success! Category has been saved successfully!');
         return redirect()->back();
@@ -245,6 +252,13 @@ class CategoriesController extends Controller
             }
         }
         $category->slug = $this->createSlug($request->input('name'),$id);
+        $res = array_key_exists('feature', $input);
+        if ($res == false) {
+            $user->feature = 0;
+        } else {
+            $user->feature = 1;
+
+        }
         $category->save();
         Session::flash('success_message', 'Success! Category has been updated successfully!');
         return redirect()->back();

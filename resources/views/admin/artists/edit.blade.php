@@ -86,6 +86,12 @@
                                    name="active"  value="1" {{ ($user->active) ?'checked':'' }} />
                         </div>
                     </div>
+                     <div class="form-group">
+                        <label class="col-sm-3 control-label">Feature</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox"  class="js-switch" data-color="#99d683" name="feature" value="1" {{ ($user->feature) ?'checked':'' }}/>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Gender</label>
                         <div class="col-sm-4">

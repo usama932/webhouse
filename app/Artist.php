@@ -22,7 +22,7 @@ class Artist extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','phone','facebook_link','twitter_link','instagram_link','youtube_link','gender','active',
-        'cover_photo','description','image',
+        'cover_photo','description','image','feature'
     ];
 
     public function subscribes(){
