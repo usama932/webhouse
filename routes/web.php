@@ -72,6 +72,7 @@ Route::group([
     
     Route::get('/artist', 'SongsController@artist')->name('user.artist');
     Route::get('/sub_artist', 'SongsController@sub_artist')->name('user.sub_artist');
+    Route::post('/search_artist', 'SongsController@searchArtist')->name('user.search_artist');
 
     //Subscriber
     Route::post('/subscribe_artist/{id}', 'ArtistSubscribeController@subscribe')->name('subscribe_artist');

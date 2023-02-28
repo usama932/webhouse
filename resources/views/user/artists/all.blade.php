@@ -18,9 +18,11 @@
                         <h3 class="section_heading section_heading_divider mb-5">Artists</h3>
                     </div>
                     <div class="col-md-5">
-                        <form action="#" class="mb-5">
+                        <form action="{{route('user.search_artist')}}" method="post" class="mb-5">
+                            @csrf
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
+                                <input type="hidden" class="form-control" placeholder="Search" value="0" name="subscribe">
                                 <button class="input-group-text"><i class="fas fa-search"></i></button>
                             </div>
                         </form>

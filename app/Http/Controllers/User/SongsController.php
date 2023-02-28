@@ -112,16 +112,31 @@ class SongsController extends Controller
         return response()->json(['status' => true, 'msg' => 'Not found audio']);
     }
  
-    
+    // Artist Function
     public function artist(){
         $artists = Artist::where('active',1)->latest()->paginate(10);
         return view("user.artists.all",compact('artists'));
     }
 
-    public function sub_artist(){
-        $id= Auth::id();
+    public function sub_artist(){ 
+        
         $artists = ArtistSubscribe::where('user_id',$id)->with('artist')->latest()->paginate(10);
-       
         return view("user.artists.subcribe",compact('artists'));
+    }
+    public function searchArtist(Request $request){
+        
+        $search = $request->search;
+        if($request->subscribe == 0){
+        
+        $artists = Artist::where('active',1)->where('name', 'like', "%{$search}%")->latest()->paginate(10);
+        return view("user.artists.all",compact('artists'));
+        }
+        elseif($request->subscribe == 1){
+            $artists = Artist::where('active',1)->where('name', 'like', "%{$search}%")->latest()->paginate(10);
+            return view("user.artists.all",compact('artists'));
+        }
+        else{
+        }
+       
     }
 }
