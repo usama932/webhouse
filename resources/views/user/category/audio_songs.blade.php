@@ -18,7 +18,7 @@
                         <h3 class="section_heading section_heading_divider mb-5">Audio Songs</h3>
                     </div>
                     <div class="col-md-5">
-                        <form action="{{route('audioSongs-search'')}}" method="POST" enctype="multipart/form-data" class="mb-5">
+                        <form action="{{route('audioSongs-search')}}" method="POST" enctype="multipart/form-data" class="mb-5">
                             @csrf
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
