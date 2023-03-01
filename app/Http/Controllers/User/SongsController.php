@@ -120,11 +120,19 @@ class SongsController extends Controller
 
     public function sub_artist(){ 
         $id= Auth::id();
-        $artists = ArtistSubscribe::where('user_id',$id)->with('artist')->latest()->paginate(10);
+        $artists = ArtistSubscribe::where('user_id',$id)->with('artist')
+                    ->join('artists', 'artist_subscribes.artist_id', '=', 'artists.id')
+                    ->select(
+                        'artist_subscribes.id',
+                        'artists.name',
+                        'artists.image',
+                        'artists.facebook_link',
+                    
+                    )->paginate(10);
         return view("user.artists.subcribe",compact('artists'));
     }
     public function searchArtist(Request $request){
-        
+        $id= Auth::id();
         $search = $request->search;
         if($request->subscribe == 0){
         
@@ -132,10 +140,21 @@ class SongsController extends Controller
         return view("user.artists.all",compact('artists'));
         }
         elseif($request->subscribe == 1){
-            $artists = Artist::where('active',1)->where('name', 'like', "%{$search}%")->latest()->paginate(10);
-            return view("user.artists.all",compact('artists'));
+            $artists = ArtistSubscribe::where('user_id',$id)->with('artist')
+            ->join('artists', 'artist_subscribes.artist_id', '=', 'artists.id')
+            ->select(
+                'artist_subscribes.id',
+                'artists.name',
+                'artists.image',
+                'artists.facebook_link',
+              
+            )
+           ->where('artists.name', 'like',"%{$search}%" )->paginate(10);
+                 
+            return view("user.artists.subcribe",compact('artists'));
         }
         else{
+            return redirect()->back();
         }
        
     }

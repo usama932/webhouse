@@ -84,11 +84,15 @@ $logo = isset($setting['logo']) ? '/uploads/'.$setting['logo'] : 'frontend/image
                         <li><a class="dropdown-item" href="fav_songs.html">Video</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-calendar-alt"></i>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-heart"></i>
                         <span class="nav-link-title">Events</span>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{route('user.events')}}">All Events</a></li>
+                        <li><a class="dropdown-item" href="{{route('user.fav_events')}}">Favorite Events</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" data-bs-toggle="dropdown">
@@ -161,12 +165,17 @@ $logo = isset($setting['logo']) ? '/uploads/'.$setting['logo'] : 'frontend/image
                                         <li><a class="dropdown-item" href="{{route('videoFavourite-songs')}}">Video</a></li>
                                     </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <i class="fas fa-calendar-alt"></i>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="#" data-bs-toggle="dropdown">
+                                        <i class="fas fa-heart"></i>
                                         <span class="nav-link-title">Events</span>
                                     </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{route('user.events')}}">All Events</a></li>
+                                        <li><a class="dropdown-item" href="{{route('user.fav_events')}}">Favorite Events</a></li>
+                                    </ul>
                                 </li>
+                               
                             </ul>
                         </div>
                         <div class="col-md-3 d-none d-lg-inline-flex">

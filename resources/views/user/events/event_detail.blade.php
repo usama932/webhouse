@@ -1,19 +1,27 @@
-@extends("artist.layouts.master")
+@extends("user.layouts.master")
 @section("meta")
 <title>Events | Soul Entertainment</title>
 @endsection
 @section("content")
+
 <main class="d-flex flex-column justify-content-start flex-grow-1">
 
 
     <div class="section_space d-flex flex-column justify-content-center ">
         <div class="container">
             <div class="row justify-content-center">
+
+
+
                 <div class="col-md-12 text-center mt-5">
+                    
                     <div class="item_box">
+
                         <div class="item_box_thumb_link">
                             <img alt="" src="{{ asset("uploads/image/$event->image") }}" width="30%" height="30%" />
                         </div>
+
+
                     </div>
 
                     <div class="tab-content main_tab_content">
@@ -24,9 +32,9 @@
 
                                 </div>
                                 <div class="header_box_icons ms-sm-auto mt-2 mt-sm-0">
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a href=""><i class="fab fa-twitter"></i></a>
+                                    <a href=""><i class="fab fa-instagram"></i></a>
                                 </div>
                             </div>
                             <ul class="list_items p-0 m-0">
@@ -173,5 +181,7 @@
     </div>
 
 </main>
+@endsection
+@section("scripts")
 
 @endsection

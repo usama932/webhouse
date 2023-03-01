@@ -26,8 +26,8 @@ class UserController extends Controller
     {
         $audios = Audio::with('cat','artist')->latest()->take(5)->get();
         $videos = Video::with('cat','artist')->latest()->take(5)->get();
-        $categories = Category::latest()->take(15)->get();
-        $artists = Artist::latest()->take(15)->get();
+        $categories = Category::where('feature',1)->latest()->take(15)->get();
+        $artists = Artist::where('feature',1)->latest()->take(15)->get();
 
         return view('user.dashboard.index',compact('audios','videos','categories','artists'));
     }

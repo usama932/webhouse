@@ -43,7 +43,12 @@
                             <a class="list_item_info_sub" href="#">Category</a>
                         </div>
                         <div class="list_item_icons ms-auto">
-                            <a href="#"><i class="fas fa-play"></i></a>
+                            <audio controls>
+                                <source src="{{asset("uploads/audio")}}/{{$datum->audio}}" type="audio/mpeg"> 
+                            </audio>
+                        </div>
+                        <div class="list_item_icons ms-auto">
+                            
                             <a href="javascript:;" class="del" data-id="{{ $datum->id }}"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </li>

@@ -43,10 +43,15 @@
                                 <a class="list_item_info_sub" href="#">{{$datum->cat->name}}</a>
                                 @endif
                             </div>
+                            <div class="list_item_icons ms-auto">    
+                                <video width="150" height="100" controls> 
+                                    <source src="{{asset("uploads/video/")}}/{{$datum->video}}  " type="video/mp4">   
+                                    <source src="{{asset("uploads/video/")}}/{{$datum->video}}  " type="video/ogg">   
+                                    Your browser does not support the video tag. 
+                                </video>      
+                            </div>
                             <div class="list_item_icons ms-auto">
-                                <a href="#"><i class="fas fa-play"></i></a>
-                                <a href="javascript:;" class="del" data-id="{{ $datum->id }}"><i class="fas fa-trash-alt"></i></a>
-                                
+                                 <a href="javascript:;" class="del" data-id="{{ $datum->id }}"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </li>
                         @endforeach

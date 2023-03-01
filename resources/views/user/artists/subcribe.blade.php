@@ -34,11 +34,12 @@
                     @foreach($artists as $artist)
                         <li class="list_item d-flex align-items-center">
                             <a href="#" class="list_item_thumb">
-                                <img alt="" src="{{asset("uploads")}}/{{$artist->artist->image}} " width="60"/>    
+                            
+                                <img alt="" src="{{asset("uploads")}}/{{$artist->image}} " width="60"/>    
                             </a>
                             <div class="list_item_info mx-3">
-                                <a class="list_item_info_title" href="#">{{$artist->artist->name}}</a>
-                                <a class="list_item_info_sub" href="#">{{$artist->artist->facebook_link}}</a>
+                                <a class="list_item_info_title" href="#">{{$artist->name}}</a>
+                                <a class="list_item_info_sub" href="#">{{$artist->facebook_link}}</a>
                                 
                             </div>
                             <div class="list_item_icons ms-auto">   

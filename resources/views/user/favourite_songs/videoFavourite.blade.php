@@ -41,13 +41,15 @@
                             </div>
                         
                             <div class="list_item_icons ms-auto">
-                                <video width="150" height="100" controls> 
-                            
-                                <source src="{{asset("uploads/video")}}/{{$video->video->video}}  " type="video/mp4">   
-                                <source src="{{asset("uploads/video")}}/{{$video->video->video}}  " type="video/ogg">   
-                                Your browser does not support the video tag. 
+                                <video width="150" height="100" controls>                             
+                                    <source src="{{asset("uploads/video")}}/{{$video->video->video}}  " type="video/mp4">   
+                                    <source src="{{asset("uploads/video")}}/{{$video->video->video}}  " type="video/ogg">   
+                                    Your browser does not support the video tag. 
                                 </video> 
-                                <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
+                                
+                            </div>
+                            <div class="list_item_icons ms-auto">
+                                <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="fa fa-heart"></i></a>
                             </div>
                         </li>
                     @endforeach

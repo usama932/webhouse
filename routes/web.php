@@ -77,6 +77,15 @@ Route::group([
     //Subscriber
     Route::post('/subscribe_artist/{id}', 'ArtistSubscribeController@subscribe')->name('subscribe_artist');
     Route::post('/unsubscribe_artist/{id}', 'ArtistSubscribeController@unsubscribe')->name('unsubscribe_artist');
+    //Events
+    Route::get('/events', 'EventController@events')->name('user.events');
+    Route::get('/fav_events', 'EventController@fav_events')->name('user.fav_events');
+    Route::get('/eventDetail/{id}', 'EventController@eventDetail')->name('user.eventDetail');
+    Route::post('/event/search', 'EventController@eventsearch')->name('user.event');
+    
+
+    Route::post('/favourEvent/{id}', 'EventController@favourEvent')->name('eventFavour');
+    Route::post('/unfavourEvent/{id}', 'EventController@unfavourEvent')->name('eventunFavour');
     
 });
 Route::group([
@@ -102,8 +111,7 @@ Route::group([
 
     Route::resource('artist-events','EventsController');
     Route::get('/eventDetail/{id}', 'EventsController@eventDetail')->name('artist.eventDetail');
-
-    
+   
 
     Route::resource('artist-images','ImagesController');
 

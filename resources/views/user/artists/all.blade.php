@@ -48,7 +48,7 @@
                         </li>   
                     @endforeach
 
-                     <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center">
                        {!! $artists ->links() !!}
                     </div>
 

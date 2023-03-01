@@ -153,11 +153,11 @@ class CategoriesController extends Controller
 
             }
         }
-        $res = array_key_exists('feature', $input);
+        $res = array_key_exists('feature', $request->input('feature'));
         if ($res == false) {
-            $user->feature = 0;
+            $category->feature = 0;
         } else {
-            $user->feature = 1;
+            $category->feature = 1;
 
         }
         $category->save();
@@ -233,6 +233,7 @@ class CategoriesController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
+        $input = $request->all();
 
         $category =  Category::findOrFail($id);
         $category->name = $request->input('name');
@@ -252,11 +253,11 @@ class CategoriesController extends Controller
             }
         }
         $category->slug = $this->createSlug($request->input('name'),$id);
-        $res = array_key_exists('feature', $input);
+        $res = array_key_exists('feature',  $input);
         if ($res == false) {
-            $user->feature = 0;
+            $category->feature = 0;
         } else {
-            $user->feature = 1;
+            $category->feature = 1;
 
         }
         $category->save();

@@ -36,12 +36,15 @@
                             <div class="list_item_info mx-3">
                                 <a class="list_item_info_title" href="#">{{$audio->audio->name}}</a>
                                 <a class="list_item_info_sub" href="#">{{$audio->audio->cat->name}}</a>
-                                 <a href="javascript:;" class="favour"  data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
+                                 
                             </div>
                             <div class="list_item_icons ms-auto">   
                                 <audio controls>
                                 <source src="{{asset("uploads/audio")}}/{{$audio->audio->audio}}" type="audio/mpeg"> 
                                 </audio>
+                            </div>
+                            <div class="list_item_icons ms-auto">
+                                <a href="javascript:;" class="favour"  data-id="{{ $audio->id }}"><i class="fa fa-heart "></i></a>
                             </div>
                         </li>   
                     @endforeach
