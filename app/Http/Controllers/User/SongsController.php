@@ -118,7 +118,18 @@ class SongsController extends Controller
  
     // Artist Function
     public function artist(){
-        $artists = Artist::where('active',1)->latest()->paginate(10);
+        $artists = Artist::where('active',1)
+        ->leftJoin('artist_subscribes','artists.id','=','artist_subscribes.artist_id')
+        ->select(
+            'artist_subscribes.id as artist_id',
+            'artists.id',
+            'artists.name',
+            'artists.image',
+            'artists.facebook_link',
+            'artists.created_at',
+            'artist_subscribes.status',
+        )
+        ->latest()->paginate(10);
         return view("user.artists.all",compact('artists'));
     }
 

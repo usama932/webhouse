@@ -27,7 +27,7 @@ class UserController extends Controller
         $audios = Audio::with('cat','artist')->latest()->take(5)->get();
         $videos = Video::with('cat','artist')->latest()->take(5)->get();
         $categories = Category::where('feature',1)->latest()->take(15)->get();
-        $artists = Artist::where('feature',1)
+        $artists = Artist::where('active',1)->where('feature',1)
                             ->leftJoin('artist_subscribes','artists.id','=','artist_subscribes.artist_id')
                             ->select(
                                 'artist_subscribes.id as artist_id',
