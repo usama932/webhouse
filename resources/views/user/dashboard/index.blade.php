@@ -112,9 +112,20 @@
                                     </div>
                                     <div class="item_box_content">
                                         <h5 class="item_box_title">{{$artist->name}}</h5>
-                                        <div class="text-center">
-                                            <a href="#" class="btn btn_light btn_sm">subscribe</a>
-                                        </div>
+                                        @if($artist->status == '1')
+                                           <div class="text-center">
+                                                <a  href="javascript:;"   data-id="{{ $artist->artist_id }}" class="unsubscribe btn btn_light btn_sm">UnSubscribe</a>
+                                            </div>
+                                        @elseif($artist->status == '0')
+                                         <div class="text-center">
+                                                <a href="javascript:;"   data-id="{{ $artist->artist_id }}" class="unsubscribe btn btn_light btn_sm">Cancel Request</a>
+                                            </div>
+                                        @elseif($artist->status = " " && $artist->status != '0' &&  $artist->status != '1')
+                                            <div class="text-center">
+                                                <a href="javascript:;"   data-id="{{ $artist->id }}" class="subscribe btn btn_light btn_sm">Subscribe</a>
+                                            </div>
+                                            
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -258,6 +269,88 @@
                 }).done(function(response) {
 
                     Swal.fire("Favourite!", response.msg, "success");
+                    location.reload();
+
+
+                }).fail(function(response) {
+                    swal.fire("Cancelled", response.statusText, "error");
+                });
+            }
+        })
+    });
+</script>
+<script>
+    $(document).on('click', '.unsubscribe', function(e) {
+        var uid = $(this).data('id');
+        tr = $(this).closest('tr');
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Are You Want to UnSubscribe!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        '_method': 'POST'
+                    },
+                    url: "{{url('user/unsubscribe_artist/')}}/" + uid,
+
+                }).done(function(response) {
+
+                    Swal.fire("UnSubscribed!", response.msg, "success");
+                    location.reload();
+
+
+                }).fail(function(response) {
+                    swal.fire("Cancelled", response.statusText, "error");
+                });
+            }
+        })
+    });
+</script>
+<script>
+    $(document).on('click', '.subscribe', function(e) {
+        var uid = $(this).data('id');
+        tr = $(this).closest('tr');
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Are You Want to Subscribe!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        '_method': 'POST'
+                    },
+                    url: "{{url('user/subscribe_artist/')}}/" + uid,
+
+                }).done(function(response) {
+
+                    Swal.fire("Subscribed!", response.msg, "success");
                     location.reload();
 
 

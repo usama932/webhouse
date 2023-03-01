@@ -56,24 +56,28 @@ class SongsController extends Controller
     public function favourVideo($id)
     {
         $user_id = Auth::id();
-
-
-        $video = new FavrateVideo();
-        $video->user_id = $user_id;
-        $video->video_id = $id;
-        $video->save();
-
-
-        return response()->json(['status' => true, 'msg' => 'Added to Favourite']);
+        $save = FavrateVideo::where([["video_id", $id], ["user_id", $user_id]])->first();
+        if(empty($save)){
+            $video = new FavrateVideo();
+            $video->user_id = $user_id;
+            $video->video_id = $id;
+            $video->save();
+            return response()->json(['status' => true, 'msg' => 'Added to Favourite']);
+        }
+        return response()->json(['status' => true, 'msg' => 'Already Added']);
+      
     }
 
     public function favourAudio($id)
     {
         $user_id = Auth::id();
+        $save = FavrateAudio::where([["AUDIO_id", $id], ["user_id", $user_id]])->first();
+        if(empty($save)){
         $video = new FavrateAudio();
         $video->user_id = $user_id;
         $video->AUDIO_id = $id;
         $video->save();
+        }
 
         return response()->json(['status' => true, 'msg' => 'Added to Favourite']);
     }
@@ -88,8 +92,8 @@ class SongsController extends Controller
 
     public function videoFavourite_songs()
     {
-       
         $id= Auth::id();
+
         $videos = FavrateVideo::where('user_id',$id)->with('video')->get();
         return view("user.favourite_songs.videoFavourite", ["videos" => $videos]);
     }

@@ -17,13 +17,24 @@ use App\User;
 class ArtistSubscribeController extends Controller
 {
     public function subscribe($id){
-   
+     
       $user_id = Auth::id();
-      $artist = new ArtistSubscribe();
-      $artist->user_id = $user_id;
-      $artist->artist_id = $id;
-      $artist->save();
-      return response()->json(['status' => true, 'msg' => 'Subscribed']);
+      $save = ArtistSubscribe::where([["artist_id", $id], ["user_id", $user_id]])->first();
+        if (empty($save)) {
+          $artist = new ArtistSubscribe();
+          $artist->user_id = $user_id;
+          $artist->artist_id = $id;
+          $artist->status = 0;
+          $artist->save();
+          return response()->json(['status' => true, 'msg' => 'Subscribed']);
+        }
+        else
+        {
+          return response()->json(['status' => true, 'msg' => 'Already Subscribe']);
+        }
+        
+   
+      
     }
     public function unsubscribe($id){
    

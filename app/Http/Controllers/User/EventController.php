@@ -79,13 +79,19 @@ class EventController extends Controller
     public function favourEvent($id){
        
         $user_id = Auth::id();
-        $event = new FaverateEvent();
-        $event->user_id = $user_id;
-        $event->event_id = $id;
-        $event->save();
+        $save = FaverateEvent::where([["event_id", $id], ["user_id", $user_id]])->first();
+        if(empty($save)){
+            $event = new FaverateEvent();
+            $event->user_id = $user_id;
+            $event->event_id = $id;
+            $event->save();
 
-
-        return response()->json(['status' => true, 'msg' => 'Added to Favourite']);
+            return response()->json(['status' => true, 'msg' => 'Added to Favourite']);
+        }
+        else{
+            return response()->json(['status' => true, 'msg' => 'Already Added']);
+        }
+   
     }
     public function unfavourEvent($id){
        
