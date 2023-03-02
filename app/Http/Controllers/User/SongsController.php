@@ -21,7 +21,18 @@ class SongsController extends Controller
     {
         
         $user_id = Auth::id();
-        $audios = Audio::with('cat','artist','fav')->paginate(10);
+        $audios = Audio::leftjoin('favrate_audio' ,'audio.id','=','favrate_audio.audio_id')
+                        ->leftjoin('categories as cat','audio.category','=', 'cat.id')
+                        ->select(
+                            'audio.id',
+                            'favrate_audio.audio_id',
+                            'favrate_audio.id as fav_id',
+                            'audio.name',
+                            'audio.thumbnail',
+                            'audio.audio',
+                            'cat.name as cat_name' ,
+                        )
+                        ->with('cat','artist','fav')->paginate(10);
            
         return view("user.songs.audio_songs", ["audios" => $audios]);
     }
@@ -29,7 +40,18 @@ class SongsController extends Controller
     public function video_songs()
     {
         $user_id = Auth::id();
-        $videos = Video::with('cat','artist')->paginate(10);
+        $videos = Video::leftjoin('favrate_videos' ,'videos.id','=','favrate_videos.video_id')
+                        ->leftjoin('categories as cat','videos.category','=', 'cat.id')
+                        ->select(
+                            'videos.id',
+                            'favrate_videos.video_id',
+                            'favrate_videos.id as fav_id',
+                            'videos.name',
+                            'videos.thumbnail',
+                            'videos.video',
+                            'cat.name as cat_name' ,
+                        )
+                        ->paginate(10);
         
         return view("user.songs.video_songs", ["videos" => $videos]);
     }
@@ -85,8 +107,16 @@ class SongsController extends Controller
     public function audioFavourite_songs()
     {
         $id= Auth::id();
-        $audios = FavrateAudio::where('user_id',$id)->with('audio')->get();
-      
+        $audios = FavrateAudio::where('user_id',$id)
+                                ->join('audio' ,'favrate_audio.audio_id','=','audio.id')
+                                ->select(
+                                    'favrate_audio.id',
+                                    'audio.thumbnail',
+                                    'audio.name',
+                                    'audio.audio',
+
+                                )
+                                ->with('audio')->get();
         return view("user.favourite_songs.audioFavourite", ["audios" => $audios]);
     }
 
@@ -94,7 +124,51 @@ class SongsController extends Controller
     {
         $id= Auth::id();
 
-        $videos = FavrateVideo::where('user_id',$id)->with('video')->get();
+        $videos = FavrateVideo::where('user_id',$id)
+                                ->join('videos' ,'favrate_videos.video_id','=','videos.id')
+                                ->select(
+                                    'favrate_videos.id',
+                                    'videos.thumbnail',
+                                    'videos.name',
+                                    'videos.video',
+
+                                )
+                                ->with('video')->get();
+        return view("user.favourite_songs.videoFavourite", ["videos" => $videos]);
+    }
+    public function search_audioFavourite_songs(Request $request){
+      
+        $id= Auth::id();
+        $search = $request->search;
+     
+        $audios = FavrateAudio::where('user_id',$id)
+                                ->join('audio' ,'favrate_audio.audio_id','=','audio.id')
+                                ->select(
+                                    'favrate_audio.id',
+                                    'audio.thumbnail',
+                                    'audio.name',
+                                    'audio.audio',
+
+                                )
+                                ->where('audio.name','LIKE', "%{$search}%")
+                                ->with('audio')->get();
+                              
+        return view("user.favourite_songs.audioFavourite", ["audios" => $audios]);
+    }
+    public function search_videoFavourite_songs(Request $request){
+        $id= Auth::id();
+        $search = $request->search;
+        $videos = FavrateVideo::where('user_id',$id)
+                                ->join('videos' ,'favrate_videos.video_id','=','videos.id')
+                                ->select(
+                                    'favrate_videos.id',
+                                    'videos.thumbnail',
+                                    'videos.name',
+                                    'videos.video',
+
+                                )
+                                ->where('videos.name','LIKE', "%{$search}%")
+                                ->with('video')->get();
         return view("user.favourite_songs.videoFavourite", ["videos" => $videos]);
     }
     public function dislike_video($id)

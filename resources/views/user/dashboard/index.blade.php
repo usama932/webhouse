@@ -28,7 +28,7 @@
                         <div class="list_item_info mx-3">
                             <a class="list_item_info_title" href="#">{{$audio->name}}</a>
                             <a class="list_item_info_sub" href="#">{{$audio->cat->name}}</a>
-                            <a href="javascript:;" class="favour1" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
+                            {{-- <a href="javascript:;" class="favour1" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a> --}}
                         </div>
                         <div class="list_item_icons ms-auto">
                             <audio controls>
@@ -61,7 +61,7 @@
                             <div class="list_item_info mx-3">
                                 <a class="list_item_info_title" href="#">{{$video->name}}</a>
                                 <a class="list_item_info_sub" href="#">{{$video->cat->name}}</a>
-                                <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
+                                {{-- <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a> --}}
                             </div>
                             <div class="list_item_icons ms-auto">
                                 <video width="150" height="100" controls>                             
@@ -167,7 +167,7 @@
                         
                             <div class="swiper-slide">
                                 <div class="item_box">
-                                    <a href="#" class="stretched-link"></a>
+                                    <a href="{{route('user.select_category',$category->id)}}" class="stretched-link"></a>
                                     <div class="item_box_thumb item_box_thumb_link">
                                         <img alt="" src="{{asset("uploads/$category->image")}}"/>
                                     </div>

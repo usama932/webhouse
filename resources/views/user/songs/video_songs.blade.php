@@ -29,32 +29,38 @@
                 </div>
 
                 <ul class="list_items p-0 m-0">
-                    <!-- Song ltem -->
-                   
-
-                    <!-- Song ltem -->
-                    @foreach($videos as $video)
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="{{asset("uploads/video/$video->thumbnail")}}" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">{{$video->name}}</a>
-                            <a class="list_item_info_sub" href="#">{{$video->cat->name}}</a>
-                            
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                                <video width="150" height="100" controls> 
-                                    <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/mp4">   
-                                    <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/ogg">   
-                                    Your browser does not support the video tag. 
-                                </video> 
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-                    @endforeach
+                    @if($videos->count() > 0)
+                        @foreach($videos as $video)
+                            <li class="list_item d-flex align-items-center">
+                                <a href="#" class="list_item_thumb">
+                                        <img alt="" src="{{asset("uploads/video/$video->thumbnail")}}" width="60"/>
+                                </a>
+                                <div class="list_item_info mx-3">
+                                    <a class="list_item_info_title" href="#">{{$video->name}}</a>
+                                    <a class="list_item_info_sub" href="#">{{$video->cat_name}}</a>
+                                    
+                                </div>
+                                <div class="list_item_icons ms-auto">
+                                        <video width="150" height="100" controls> 
+                                            <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/mp4">   
+                                            <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/ogg">   
+                                            Your browser does not support the video tag. 
+                                        </video> 
+                                </div>
+                                @if(!empty($video->fav_id))
+                                    <div class="list_item_icons ms-auto">
+                                            <a href="javascript:;" class="unfavour"  data-id="{{ $video->fav_id }}"><i class="fa fa-heart"></i></a>
+                                        </div>
+                                @else
+                                    <div class="list_item_icons ms-auto">
+                                        <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
+                                    </div>
+                                @endif
+                            </li>
+                        @endforeach
+                    @else  
+                        Not Found Videos
+                    @endif
 
                     <!-- Song ltem -->
                     <div class="d-flex justify-content-center">
@@ -109,6 +115,47 @@
                 }).done(function(response) {
 
                     Swal.fire("Favourite!", response.msg, "success");
+                    location.reload();
+
+
+                }).fail(function(response) {
+                    swal.fire("Cancelled", response.statusText, "error");
+                });
+            }
+        })
+    });
+</script>
+<script>
+    $(document).on('click', '.unfavour', function(e) {
+        var uid = $(this).data('id');
+        tr = $(this).closest('tr');
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Added to Unwanted!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        '_method': 'POST'
+                    },
+                    url: "{{url('user/dislike_video/')}}/" + uid,
+
+                }).done(function(response) {
+
+                    Swal.fire("Unwanted !", response.msg, "success");
                     location.reload();
 
 

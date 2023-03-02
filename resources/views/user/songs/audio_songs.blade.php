@@ -29,30 +29,41 @@
                 </div>
                
                 <ul class="list_items p-0 m-0">
-                    <!-- Song ltem -->
-                    @foreach($audios as $audio)
-                    <li class="list_item d-flex align-items-center">
-                        <a href="#" class="list_item_thumb">
-                                <img alt="" src="{{asset("uploads/audio/$audio->thumbnail")}}" width="60"/>
-                        </a>
-                        <div class="list_item_info mx-3">
-                            <a class="list_item_info_title" href="#">{{$audio->name}}</a>
-                            <a class="list_item_info_sub" href="category.html">{{$audio->cat->name}}</a>
-                             
+                    @if($audios->count() > 0)
+                        @foreach($audios as $audio)
+                        <li class="list_item d-flex align-items-center">
+                            <a href="#" class="list_item_thumb">
+                                    <img alt="" src="{{asset("uploads/audio/$audio->thumbnail")}}" width="60"/>
+                            </a>
+                            <div class="list_item_info mx-3">
+                                <a class="list_item_info_title" href="#">{{$audio->name}}</a>
+                                <a class="list_item_info_sub" href="category.html">{{$audio->cat_name}}</a>
+                                
 
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <audio controls>
-                                <source src="{{asset("uploads/audio")}}/{{$audio->audio}}" type="audio/mpeg"> 
-                            </audio>
-                        </div>
-                        <div class="list_item_icons ms-auto">
-                            <a href="javascript:;" class="favour" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
-                        </div>
-                    </li>
-                    @endforeach
+                            </div>
+                            <div class="list_item_icons ms-auto">
+                                <audio controls>
+                                    <source src="{{asset("uploads/audio")}}/{{$audio->audio}}" type="audio/mpeg"> 
+                                </audio>
+                            </div>
+                            @if(!empty($audio->fav_id))
+                                <div class="list_item_icons ms-auto">
+                                        <a href="javascript:;" class="unfavour"  data-id="{{ $audio->fav_id }}"><i class="fa fa-heart "></i></a>
+                                    </div>
+                            @else
+                                <div class="list_item_icons ms-auto">
+                                    <a href="javascript:;" class="favour" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
+                                </div>
+                            @endif
+                        </li>
+                        @endforeach
+                    @else
+                        Not Found Audio
+                    @endif
                     <!-- Song ltem -->
-                   
+                    <div class="d-flex justify-content-center">
+                        {!! $audios ->links() !!}
+                    </div>
 
                 </ul>
                 
@@ -103,6 +114,47 @@
 
                     Swal.fire("Favour Added Successfully!", response.msg, "success");
                     location.reload();
+                }).fail(function(response) {
+                    swal.fire("Cancelled", response.statusText, "error");
+                });
+            }
+        })
+    });
+</script>
+<script>
+    $(document).on('click', '.unfavour', function(e) {
+        var uid = $(this).data('id');
+        tr = $(this).closest('tr');
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You can be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Added to Unwanted!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    method: 'POST',
+                    data: {
+                        '_method': 'POST'
+                    },
+                    url: "{{url('user/dislike_audio/')}}/" + uid,
+
+                }).done(function(response) {
+
+                    Swal.fire("Unwanted!", response.msg, "success");
+                    location.reload();
+
+
                 }).fail(function(response) {
                     swal.fire("Cancelled", response.statusText, "error");
                 });

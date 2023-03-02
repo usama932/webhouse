@@ -18,7 +18,8 @@
                         <h3 class="section_heading section_heading_divider mb-5">Favorites Videos Songs</h3>
                     </div>
                     <div class="col-md-5">
-                        <form action="#" class="mb-5">
+                        <form action="{{route('search.videoFavourite-songs')}}" class="mb-5" method="post">
+                            @csrf
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
                                 <button class="input-group-text"><i class="fas fa-search"></i></button>
@@ -29,30 +30,34 @@
 
                 <ul class="list_items p-0 m-0">
                     <!-- Song ltem -->
-                    @foreach($videos as $video)
-                        <li class="list_item d-flex align-items-center">
-                            <a href="#" class="list_item_thumb">
-                                    <img alt="" src="{{asset("uploads/video/")}}/{{$video->video->thumbnail}} " width="60"/>
-                            </a>
-                            <div class="list_item_info mx-3">
-                               
-                                <a class="list_item_info_title" href="#">{{$video->video->name ?? ''}}</a>
-                                <a class="list_item_info_sub" href="category.html">{{$video->video->cat->name ?? ''}}</a>
-                            </div>
-                        
-                            <div class="list_item_icons ms-auto">
-                                <video width="150" height="100" controls>                             
-                                    <source src="{{asset("uploads/video")}}/{{$video->video->video}}  " type="video/mp4">   
-                                    <source src="{{asset("uploads/video")}}/{{$video->video->video}}  " type="video/ogg">   
-                                    Your browser does not support the video tag. 
-                                </video> 
+                    @if($videos->count()  > 0 )
+                        @foreach($videos as $video)
+                            <li class="list_item d-flex align-items-center">
+                                <a href="#" class="list_item_thumb">
+                                        <img alt="" src="{{asset("uploads/video/")}}/{{$video->thumbnail}} " width="60"/>
+                                </a>
+                                <div class="list_item_info mx-3">
                                 
-                            </div>
-                            <div class="list_item_icons ms-auto">
-                                <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="fa fa-heart"></i></a>
-                            </div>
-                        </li>
-                    @endforeach
+                                    <a class="list_item_info_title" href="#">{{$video->name ?? ''}}</a>
+                                    <a class="list_item_info_sub" href="category.html">{{$video->cat->name ?? ''}}</a>
+                                </div>
+                            
+                                <div class="list_item_icons ms-auto">
+                                    <video width="150" height="100" controls>                             
+                                        <source src="{{asset("uploads/video")}}/{{$video->video}}  " type="video/mp4">   
+                                        <source src="{{asset("uploads/video")}}/{{$video->video}}  " type="video/ogg">   
+                                        Your browser does not support the video tag. 
+                                    </video> 
+                                    
+                                </div>
+                                <div class="list_item_icons ms-auto">
+                                    <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="fa fa-heart"></i></a>
+                                </div>
+                            </li>
+                        @endforeach
+                    @else
+                        Bo Found Videos
+                    @endif
 
 
                 </ul>

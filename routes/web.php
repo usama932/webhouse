@@ -60,11 +60,14 @@ Route::group([
 
     Route::post('/dislike_video/{id}', 'SongsController@dislike_video')->name('dislike_video');
     Route::post('/dislike_audio/{id}', 'SongsController@dislike_audio')->name('dislike_audio');
-
+    // Favourite Songs
     Route::get('/videoFavourite-songs', 'SongsController@videoFavourite_songs')->name('videoFavourite-songs');
     Route::get('/audioFavourite-songs', 'SongsController@audioFavourite_songs')->name('audioFavourite-songs');
+    Route::post('/search_fav_audio','SongsController@search_audioFavourite_songs')->name('search.audioFavourite-songs');
+    Route::post('/search_fav_video','SongsController@search_videoFavourite_songs')->name('search.videoFavourite-songs');
     // User Categories
     Route::get('/category', 'CategoryController@category')->name('user.category');
+    Route::get('/select_category/{id}', 'CategoryController@select_category')->name('user.select_category');
     Route::get('/audio_category/{id}', 'CategoryController@show_audioSongs')->name('user.audio_category_songs');
     Route::get('/video_category/{id}', 'CategoryController@show_videoSongs')->name('user.video_category_songs');
     Route::post('/search_category', 'CategoryController@searchCategory')->name('user.search_category');

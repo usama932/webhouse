@@ -18,7 +18,8 @@
                         <h3 class="section_heading section_heading_divider mb-5">Favorites Audio Songs</h3>
                     </div>
                     <div class="col-md-5">
-                        <form action="#" class="mb-5">
+                        <form action="{{route('search.audioFavourite-songs')}}" class="mb-5" method="post">
+                            @csrf
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
                                 <button class="input-group-text"><i class="fas fa-search"></i></button>
@@ -28,28 +29,31 @@
                 </div>
                
                 <ul class="list_items p-0 m-0">
-                    @foreach($audios as $audio)
-                        <li class="list_item d-flex align-items-center">
-                            <a href="#" class="list_item_thumb">
-                                <img alt="" src="{{asset("uploads/audio")}}/{{$audio->audio->thumbnail}} " width="60"/>    
-                            </a>
-                            <div class="list_item_info mx-3">
-                                <a class="list_item_info_title" href="#">{{$audio->audio->name}}</a>
-                                <a class="list_item_info_sub" href="#">{{$audio->audio->cat->name}}</a>
-                                 
-                            </div>
-                            <div class="list_item_icons ms-auto">   
-                                <audio controls>
-                                <source src="{{asset("uploads/audio")}}/{{$audio->audio->audio}}" type="audio/mpeg"> 
-                                </audio>
-                            </div>
-                            <div class="list_item_icons ms-auto">
-                                <a href="javascript:;" class="favour"  data-id="{{ $audio->id }}"><i class="fa fa-heart "></i></a>
-                            </div>
-                        </li>   
-                    @endforeach
+                    @if($audios->count()  > 0 )
+                        @foreach($audios as $audio)
+                            <li class="list_item d-flex align-items-center">
+                                <a href="#" class="list_item_thumb">
+                                    <img alt="" src="{{asset("uploads/audio")}}/{{$audio->thumbnail}} " width="60"/>    
+                                </a>
+                                <div class="list_item_info mx-3">
+                                    <a class="list_item_info_title" href="#">{{$audio->name}}</a>
+                                    <a class="list_item_info_sub" href="#">{{$audio->cat->name ?? ''}}</a>
+                                    
+                                </div>
+                                <div class="list_item_icons ms-auto">   
+                                    <audio controls>
+                                    <source src="{{asset("uploads/audio")}}/{{$audio->audio}}" type="audio/mpeg"> 
+                                    </audio>
+                                </div>
+                                <div class="list_item_icons ms-auto">
+                                    <a href="javascript:;" class="favour"  data-id="{{ $audio->id }}"><i class="fa fa-heart "></i></a>
+                                </div>
+                            </li>   
+                        @endforeach
 
-                    
+                    @else
+                        No Found Audio
+                    @endif
 
                     
             
