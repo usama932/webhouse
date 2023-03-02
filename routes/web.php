@@ -68,7 +68,10 @@ Route::group([
     Route::get('/audio_category/{id}', 'CategoryController@show_audioSongs')->name('user.audio_category_songs');
     Route::get('/video_category/{id}', 'CategoryController@show_videoSongs')->name('user.video_category_songs');
     Route::post('/search_category', 'CategoryController@searchCategory')->name('user.search_category');
-  
+
+    // Song Search by 
+    Route::post('/audio_search_category', 'CategoryController@categoryAudioSearch')->name('user.categoryAudioSearch');
+    Route::post('/video_search_category', 'CategoryController@categoryVideoSearch')->name('user.categoryVideoSearch');
     
     Route::get('/artist', 'SongsController@artist')->name('user.artist');
     Route::get('/sub_artist', 'SongsController@sub_artist')->name('user.sub_artist');

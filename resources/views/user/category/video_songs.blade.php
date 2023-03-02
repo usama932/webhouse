@@ -18,7 +18,7 @@
                         <h3 class="section_heading section_heading_divider mb-5">Video Songs</h3>
                     </div>
                     <div class="col-md-5">
-                       <form action="{{route('videoSongs-search')}}" method="POST" enctype="multipart/form-data" class="mb-5">
+                       <form action="{{route('user.categoryVideoSearch')}}" method="POST" enctype="multipart/form-data" class="mb-5">
                             @csrf
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
@@ -41,17 +41,17 @@
                             <div class="list_item_info mx-3">
                                 <a class="list_item_info_title" href="#">{{$video->name}}</a>
                                 <a class="list_item_info_sub" href="#">{{$video->cat->name}}</a>
-                                <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
+                                
                             </div>
                             <div class="list_item_icons ms-auto">
                                     <video width="150" height="100" controls> 
-                                
                                         <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/mp4">   
                                         <source src="{{asset("uploads/video/")}}/{{$video->video}}  " type="video/ogg">   
                                         Your browser does not support the video tag. 
                                     </video> 
-                                
-
+                            </div>
+                            <div class="list_item_icons ms-auto">
+                                <a href="javascript:;" class="favour"  data-id="{{ $video->id }}"><i class="far fa-heart"></i></a>
                             </div>
                         </li>
                         @endforeach

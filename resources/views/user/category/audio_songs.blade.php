@@ -18,10 +18,11 @@
                         <h3 class="section_heading section_heading_divider mb-5">Audio Songs</h3>
                     </div>
                     <div class="col-md-5">
-                        <form action="{{route('audioSongs-search')}}" method="POST" enctype="multipart/form-data" class="mb-5">
+                        <form action="{{route('user.categoryAudioSearch')}}" method="POST" enctype="multipart/form-data" class="mb-5">
                             @csrf
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
+                                <input type="hidden" class="form-control" placeholder="Search" name="category" value="{{$category}}">
                                 <button class="input-group-text"><i class="fas fa-search"></i></button>
                             </div>
                         </form>
@@ -38,13 +39,16 @@
                             <div class="list_item_info mx-3">
                                 <a class="list_item_info_title" href="#">{{$audio->name}}</a>
                                 <a class="list_item_info_sub" href="category.html">{{$audio->cat->name}}</a>
-                                <a href="javascript:;" class="favour" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
+                               
 
                             </div>
                             <div class="list_item_icons ms-auto">
                                 <audio controls>
                                     <source src="{{asset("uploads/audio")}}/{{$audio->audio}}" type="audio/mpeg"> 
                                 </audio>
+                            </div>
+                            <div class="list_item_icons ms-auto">
+                                <a href="javascript:;" class="favour" data-id="{{ $audio->id }}"><i class="far fa-heart"></i></a>
                             </div>
                         </li>
                         @endforeach

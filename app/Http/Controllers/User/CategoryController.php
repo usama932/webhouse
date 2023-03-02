@@ -23,15 +23,16 @@ class CategoryController extends Controller
     }
     public function show_audioSongs($id){
         $user_id = Auth::id();
-        
-        $audios = Audio::where('category',$id)->with('cat','artist','fav')->paginate(10);
+        $category = $id;
+        $audios = Audio::where('category',$category)->with('cat','artist','fav')->paginate(10);
            
-        return view("user.category.audio_songs", ["audios" => $audios]);
+        return view("user.category.audio_songs", ["audios" => $audios,'category' => $category]);
     }
     public function show_videoSongs($id){
         $user_id = Auth::id();
-        $videos = Video::with('cat','artist')->paginate(10);
-        return view("user.category.video_songs", ["videos" => $videos]);
+        $category = $id;
+        $videos = Video::where('category',$category)->with('cat','artist')->paginate(10);
+        return view("user.category.video_songs", ["videos" => $videos,'category' => $category]);
     }
     public function searchCategory(Request $request){
         $search = $request->search;
@@ -40,15 +41,18 @@ class CategoryController extends Controller
             return view('user.category.index', ['title' => 'Categories List','categories' => $categories]);
         }
     public function categoryAudioSearch(Request $request){
+     
         $search = $request->search;
-        $audios = Audio::where('category',$id)->where('name', 'like', "%{$search}%")->with('cat','artist','fav')->paginate(10);    
-        return view("user.category.audio_songs", ["audios" => $audios]);
+        $category = $request->category;
+        $audios = Audio::where('category',$category)->where('name', 'like', "%{$search}%")->with('cat','artist','fav')->paginate(10);    
+        return view("user.category.audio_songs", ["audios" => $audios,"category" => $category]);
        
         }
     public function categoryVideoSearch(Request $request){
         $search = $request->search;
-        $videos = Video::where('category',$id)->where('name', 'like', "%{$search}%")->with('cat','artist','fav')->paginate(10);
-        return view("user.category.video_songs", ["videos" => $videos]);
+        $category = $request->category;
+        $videos = Video::where('category',$category)->where('name', 'like', "%{$search}%")->with('cat','artist','fav')->paginate(10);
+        return view("user.category.video_songs", ["videos" => $videos,"category" => $category]);
         }
         
         
