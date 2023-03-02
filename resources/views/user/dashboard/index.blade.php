@@ -14,7 +14,7 @@
             <div class="col-lg-6 pe-lg-5 mb-5 mb-lg-0">
 
                 <div class="d-flex justify-content-between">
-                    <h3 class="section_heading section_heading_divider mb-5">Weekly Top 5 Audios</h3>
+                    <h3 class="section_heading section_heading_divider mb-5"> Top 5 Audios</h3>
                     <a href="{{route('user.audioSongs')}}">View All</a>
                 </div>
                 
@@ -48,7 +48,7 @@
             <div class="col-lg-6 ps-lg-5">
 
                 <div class="d-flex justify-content-between">
-                    <h3 class="section_heading section_heading_divider mb-5">Weekly Top 5 Videos</h3>
+                    <h3 class="section_heading section_heading_divider mb-5"> Top 5 Videos</h3>
                     <a href="{{route('user.videoSongs')}}">View All</a>
                 </div>
 
