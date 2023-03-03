@@ -73,7 +73,7 @@ class CategoryController extends Controller
                         ->where('audio.category',$category)->paginate(10);
 
         
-        return view("user.category.audio_songs", ["audios" => $audios,'category' => $category, "videos" => $videos]);
+        return view("user.category.audio_songs", ["audios" => $audios,'category' => $category]);
     }
     public function show_videoSongs($id)
     {
