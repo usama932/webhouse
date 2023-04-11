@@ -103,6 +103,7 @@ class ArtistController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
+            'image' =>   'size:2048',
         ]);
         $id = Auth::id();
         $input = $request->all();

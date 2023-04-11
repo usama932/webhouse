@@ -51,17 +51,17 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row mb-3 {{ $errors->has('image') ? 'has-error' : '' }}">
                         <label for="userImage" class="col-sm-3 col-form-label">Image</label>
                         <div class="col-sm-9">
                             <img class="mb-3" alt="" src="" width="80">
-                            <input class="form-control" type="file" id="userImage" name="image">
-                           @if($artist->image)
-                            <img src="{{asset("uploads/$artist->image")}}" width="100px" height="100px" alt="">
+                            <input class="form-control" type="file" id="image" name="image">
+                            @if($artist->image)
+                              <img src="{{asset("uploads/$artist->image")}}" width="100px" height="100px" alt="">
                             @endif
-
+                             <span id="image-error" class="text-danger">{{ $errors->first('image') }}</span>
                         </div>
-
+                        
                     </div>
 
                     <div class="row mt-5">
