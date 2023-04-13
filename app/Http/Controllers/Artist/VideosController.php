@@ -79,8 +79,8 @@ class VideosController extends Controller
             'composer_name' => 'required',
             'album'=> 'required',
             'category'=> 'required',
-            'video' =>   'size:1048576',
-            'thumbnail' =>  'size:2048',
+            'video' =>   'required',
+            'thumbnail' =>  'max:2048',
 
         ]);
         try {
