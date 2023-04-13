@@ -68,12 +68,8 @@ class VideosController extends Controller
         return view("artist.videos.create",["categories" => $categories,"albums" => $albums]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+  
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -82,8 +78,9 @@ class VideosController extends Controller
             'name'=> 'required',
             'composer_name' => 'required',
             'album'=> 'required',
-            'category'=> 'required'
-          
+            'category'=> 'required',
+            'video' =>   'size:1048576',
+            'thumbnail' =>  'size:2048',
 
         ]);
         try {
