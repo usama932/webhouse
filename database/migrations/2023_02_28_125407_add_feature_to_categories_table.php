@@ -14,7 +14,7 @@ class AddFeatureToCategoriesTable extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            //
+            $table->integer('feature')->default(0);
         });
     }
 
